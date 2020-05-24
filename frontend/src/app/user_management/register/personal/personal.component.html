@@ -1,0 +1,55 @@
+<form #personalForm="ngForm" class="editForm" novalidate>
+    <div class="tab-pane fade in active">
+        <h4 class="head text-center">{{title}}</h4>
+        <br/>
+        <div class='row'>
+            <div class='col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8'>
+                <div style="height: 20px;"></div>
+                <!-- <div class="row">
+                    <div class='col-xs-12 col-sm-6'>
+                        <div class="form-group">
+                            <label class="control-label" style="font-size: 16px;" for="firstname"><b>First Name: *</b></label>  
+                            <input class="form-control input-md" #firstname="ngModel" required id="firstname" pattern="^(?!\s*$).+" name="firstname" type="text" maxlength="65" placeholder="First Name" [(ngModel)]="personal.firstName">   
+                            <div class="alert alert-danger" *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)">First Name is required</div>
+                        </div>
+                    </div>
+                    <div class='col-xs-12 col-sm-6'>
+                        <div class="form-group">
+                            <label class="control-label" style="font-size: 16px;" for="lastname"><b>Last Name: *</b></label>  
+                            <input class="form-control input-md" #lastname="ngModel" required id="lastname" pattern="^(?!\s*$).+" name="lastname" type="text" maxlength="65" placeholder="Last Name" [(ngModel)]="personal.lastName">
+                            <div class="alert alert-danger" *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">Last Name is required</div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="form-group">
+                    <label class="control-label" style="font-size: 16px;" for="email"><b>Email: *</b></label>
+                    <input class="form-control input-md" #email="ngModel" required pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" id="email" name="email" type="text" maxlength="100" placeholder="Email" [(ngModel)]="personal.email" (ngModelChange)="checkEmail()">
+                    <div class="alert alert-danger" *ngIf="(email.invalid || fakeEmail) && (email.dirty || email.touched)">Email is required and must be valid</div>
+                </div>
+
+                <div class="form-group">
+                        <label class="control-label" style="font-size: 16px;" for="password"><b>Password: *</b></label>
+                        <input class="form-control input-md" #password="ngModel" required id="password" name="password" type="password" pattern="^[A-Za-z0-9#$^%!?=']{6,64}$" placeholder="Password" [(ngModel)]="personal.password">
+                        <div class="alert alert-danger" *ngIf="password.invalid && (password.dirty || password.touched)">Password is required and must be at least 6 characters long.</div>
+                </div>
+
+                <div class="form-group">
+                        <label class="control-label" style="font-size: 16px;" for="password_confirm"><b>Password Confirmation: *</b></label>
+                        <input class="form-control input-md" required #password_confirm="ngModel" id="password_confirm" name="password_confirm" type="password" placeholder="Password Confirm" [(ngModel)]="personal.password_confirm">
+                        <div class="alert alert-danger" *ngIf="password_confirm.invalid && (password_confirm.dirty || password_confirm.touched)">Password confirmation is required</div>
+                        <div class="alert alert-danger" [hidden]="personal.password == personal.password_confirm">Passwords do not match</div>
+                </div>
+
+                <div style="height: 10px"></div>
+                <div class="form-group text-center space-10">
+                    <re-captcha (resolved)="resolved($event)" siteKey="{{captchaKey}}" required></re-captcha>
+                </div>
+                    
+                <div class="form-group text-center">
+                    <button type="button" class="btn btn-success btn-outline-rounded btn-info" [disabled]="!personalForm.valid || personal.password != personal.password_confirm || !captchaOk || fakeEmail" (click)="goToNext(personalForm)"> Next <span style="margin-left:10px;" class="glyphicon glyphicon-arrow-right"></span></button>
+                    <img [hidden]="!loading" src="{{loadingImg}}" width="35" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

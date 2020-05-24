@@ -1,0 +1,36 @@
+{
+  "name": "kyc_token_event",
+  "version": "1.0.0",
+  "description": "manage of kyc token transfer event",
+  "main": "server.js",
+  "scripts": {
+    "test": "gulp",
+    "postinstall": "rm -f node_modules/web3-eth/types/index.d.ts",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeus16/KYC3_DAPP.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zeus16/KYC3_DAPP/issues"
+  },
+  "homepage": "https://github.com/zeus16/KYC3_DAPP#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "decimal.js": "^10.1.1",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^5.0.0",
+    "http": "0.0.0",
+    "morgan": "^1.9.1",
+    "nodemailer": "^5.1.1",
+    "pg": "^7.8.2",
+    "sequelize": "^4.41.2",
+    "typescript": "^3.3.3333",
+    "web3": "^1.0.0-beta.48"
+  }
+}

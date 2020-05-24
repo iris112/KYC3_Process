@@ -1,0 +1,129 @@
+
+<!-- main header -->
+
+<title>Welcome to {{ companyName }}</title>
+
+        <!-- <dropdown-basic class="selectnav" id="selectnav1"></dropdown-basic> -->
+
+<div class="menu">
+    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{web}}"><img src="{{logoPath}}" alt="logo">
+            </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+            <!-- <li><a [routerLink]="['/account']" *ngIf="isLoggedIn()">Account</a></li> -->
+            <li><a [routerLink]="['/login']" *ngIf="!isLoggedIn()">Login</a></li>
+            <li><a [routerLink]="['/register']" *ngIf="!isLoggedIn()">Register</a></li>
+            <li><a [routerLink]="['/tokens']" *ngIf="!isLoggedIn()">Tokens</a></li>
+            <li><a [routerLink]="['/enterprise']" *ngIf="isLoggedIn() && admin">Overview</a></li>
+            <li><a [routerLink]="['/settings']" *ngIf="isLoggedIn() && admin">Settings</a></li>
+            <li><a [routerLink]="['/login']" *ngIf="isLoggedIn()">Logout</a></li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+        </div>
+        <!--/.container-fluid -->
+    </nav>
+</div>
+
+
+
+
+<!-- main app container -->
+<div class="jumbotron">
+    <div class="container">
+        <div class="col-lg-12">
+          <alert></alert>
+          <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+
+<div style="height: 50px;background-color: whitesmoke; border-top: 1px solid #060606"></div>
+
+<!--Footer-->
+<footer class="page-footer font-small stylish-color-dark pt-4 mt-4">
+
+    <!--Footer Links-->
+    <div class="container text-center text-md-left">
+        <div class="row">
+
+
+            <div class="col-md-6">
+                <div class="text-left">
+                <a href="{{web}}"><img src="{{logoPath}}" alt="logo" height="auto" width="90"></a><br>
+                <br><p style="text-align: justify">{{footerText}}</p>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+
+            </div>
+
+
+
+            <div class="col-md-4">
+                <div class="text-left">
+                <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Contact Us</h5>
+                </div>
+                <div class="text-left">
+                <ul class="list-unstyled">
+                    <li>
+                        <b>Support:</b> <a href="mailto:{{supportEmail}}" [style.color]="mainColor">{{supportEmail}}</a>
+                    </li>
+                    <li>
+                        <b>Web:</b> <a href="{{web}}" [style.color]="mainColor">{{web}}</a>
+                    </li>
+                </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--/.Footer Links-->
+    <div style="height: 20px;background-color: whitesmoke;"></div>
+
+    <!-- Social buttons
+    <div class="text-center">
+        <ul class="list-unstyled list-inline">
+            <li class="list-inline-item">
+                <a href="{{facebook}}" target="_new" class="btn-floating btn-lg btn-fb mx-1">
+                    <i class="fa fa-facebook"> </i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a href="{{twitter}}" target="_new" class="btn-floating btn-lg btn-tw mx-1">
+                    <i class="fa fa-twitter"> </i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a href="{{linkedin}}" target="_new" class="btn-floating btn-lg btn-li mx-1">
+                    <i class="fa fa-linkedin"> </i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a href="{{telegram}}" target="_new" class="btn-floating btn-lg btn-tg mx-1">
+                    <i class="fa fa-telegram"> </i>
+                </a>
+            </li>
+        </ul>
+    </div> -->
+
+    <!--/.Social buttons-->
+
+    <!--Copyright-->
+    <div class="footer-copyright py-3 text-center">
+        © 2019 Copyright:
+        <a href="{{web}}" [style.color]="mainColor"> {{ companyName }} </a>
+    </div>
+    <!--/.Copyright-->
+    <div style="height: 20px;background-color: whitesmoke;"></div>
+</footer>
+<!--/.Footer-->
+                                                                
+                  
+

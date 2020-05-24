@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-lg-12">
+        <section style="background:whitesmoke;">
+                <div class="container">
+                    <div class="board">
+                        <!-- Navigation Area (Circular Tabs) -->
+                        <register-navbar></register-navbar>
+                        <!-- End Navigation Area (Circular Tabs) -->
+                        <!-- Content Area -->
+                        <div class="tab-content">
+                            <personal *ngIf="registerState == '0'"></personal>
+                            <identityDocument *ngIf="registerState == '2'"></identityDocument>
+                            <videoOnboarding *ngIf="registerState == '1'"></videoOnboarding>
+                            <other *ngIf="registerState == '3'"></other>
+                            <!-- <summary *ngIf="registerState == '3'"></summary> -->
+                            <disclaimers *ngIf="registerState == '4'"></disclaimers>
+                        </div>
+                    </div>
+                </div>
+        </section>
+    </div>
+</div>
+

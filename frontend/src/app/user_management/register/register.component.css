@@ -1,0 +1,116 @@
+/********************** Styles for the register component ****************************/
+
+.form-group .required-info {
+  color: whitesmoke;
+  font-size: 12pt;	
+}
+
+.jumbotron {
+  background-color: black !important;
+}
+
+.agreementsTable td {
+    padding: 5px;
+    text-align: justify;
+}
+
+legend {
+  font-weight: bold;
+  padding-bottom: inherit;
+  margin-bottom: 20px;
+  cursor:pointer;
+  border-bottom: 2px solid #c1c0c0
+}
+
+.inline-field input,
+.inline-field label {
+  display: inline;
+  margin-bottom: 0; /* I added this after I posted my reply */
+  vertical-align: middle; /* Fixes any weird issues in Firefox and IE */
+}
+
+label {
+  color: whitesmoke;
+}
+
+input {
+  border: 0;
+  outline: 0;
+  color: whitesmoke;
+  background: transparent;
+  border-bottom: 1px solid whitesmoke;
+  width: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+/* Style the submit button */
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Style the container for inputs */
+.container {
+  background-color: whitesmoke;
+  padding: 20px;
+}
+
+/* The message box is shown when the user clicks on the password field */
+#message {
+  font-family: Arial, Helvetica, sans-serif;
+  display: block;
+  color: #000;
+  position: relative;
+  margin-top: 10px;
+  line-height: 3px;
+}
+
+.choose_file {
+  background-color: #337ab7;
+  border-bottom: 0;
+}
+
+.choose_file:hover {
+  background-color: #286090;
+}
+
+.toggles input {
+  background-color: whitesmoke;
+  color: black;
+  border-bottom: none;
+  font-size: 10px;
+  padding: 0;
+}
+
+#message p {
+  font-size: 12px;
+}
+
+.hide-it {
+  display: none;
+ }
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  left: -35px;
+  content: "✔                        ";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  left: -35px;
+  content: "✖                        ";
+}
+
+

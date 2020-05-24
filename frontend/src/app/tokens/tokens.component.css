@@ -1,0 +1,237 @@
+/********************** Styles for the register component ****************************/
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin-ext');
+
+h2 {
+    color: #193D93;
+}
+
+.StripeElement {
+  margin: 1rem 0 1rem;
+  background-color: #F8F8F8;
+  padding: 8px 12px;
+  border-radius: 0px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+.form-group .required-info {
+  color:#f68c1f;
+  font-size: 12pt;	
+}
+
+#card-errors {
+  color: #a94442;
+}
+
+legend {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: rgb(71, 70, 70);
+  padding-bottom: inherit;
+  margin-bottom: 25px;
+  margin-top: 25px;
+  cursor: pointer;
+}
+
+.pf {
+  font-size: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid black;
+  border-radius: 0px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+/* Style the submit button */
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Style the container for inputs */
+.container {
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+/* The message box is shown when the user clicks on the password field */
+#message {
+  font-family: Arial, Helvetica, sans-serif;
+  display: block;
+  color: #000;
+  position: relative;
+  margin-top: 10px;
+  line-height: 3px;
+}
+
+#message p {
+  font-size: 12px;
+}
+
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: rgba(4,97,150,1);
+}
+
+.valid:before {
+  left: -35px;
+  content: "✔                        ";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: rgba(4,97,150,1);
+}
+
+.invalid:before {
+  left: -35px;
+  content: "✖                        ";
+}
+
+.register-box {
+  border-radius: 0px;
+  background-color: white;
+  border: white;
+  box-shadow: 0 4px 8px 0 rgba(78, 77, 77, 0.2), 0 6px 20px 0 rgba(78, 77, 77, 0.19);
+  padding: 30px;
+}
+
+.sticky-box {
+  border-radius: 0px;
+  background-color: rgba(4,97,150,1);
+  font-size: bold;
+  color: white;
+  border: white;
+  box-shadow: 0 4px 8px 0 rgba(78, 77, 77, 0.2), 0 6px 20px 0 rgba(78, 77, 77, 0.19);
+  padding: 30px;
+  /* padding-left: 20px;
+  padding-right: 20px; */
+  font-family: 'Open Sans', sans-serif;
+  /* font-weight: bold; */
+  font-size: 14px;
+}
+
+ul {
+  list-style: none;
+}
+
+ol {
+  list-style: none;
+}
+
+ul li {
+  margin-left: -50px;
+}
+
+ol li {
+  margin-left: -50px;
+  font-size: 15px;
+}
+
+ul li:before {
+  content: '✓';
+  color: #F8CC20;
+  font-size: 14px;
+}
+
+.register-form input {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  border: none;
+  border-radius: 0px;
+  background-color: #F8F8F8; 
+  margin-bottom: 5px;
+}
+
+.plan-selector {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 0px;
+  background-color: #F8F8F8;
+  margin-bottom: 5px;
+  height: 35px;
+}
+
+.submit-button {
+  background-color: #F8CC20;
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+  padding: 10px;
+  text-align: center;
+  border: none;
+  font-size: 16px;
+  width: 50%;
+}
+
+.cancel-button {
+  background-color: rgb(150, 150, 150);
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+  padding: 10px;
+  text-align: center;
+  border: none;
+  font-size: 14px;
+  width: 25%;
+}
+
+.help-banner {
+  color: white;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+  background-color: rgba(4,97,150,1);
+  border-color: rgba(4,97,150,1);
+}
+
+.help-banner h3 {
+  color: #F8CC20;
+  background-color: rgba(4,97,150,1);
+  border-color: rgba(4,97,150,1);
+}
+
+.help-banner h4 {
+  color: white;
+  font-size: 14px;
+  background-color: rgba(4,97,150,1);
+  border-color: rgba(4,97,150,1);
+}
+
+.help-banner a {
+  color: white;
+  font-size: 14px;
+  background-color: rgba(4,97,150,1);
+  border-color: rgba(4,97,150,1);
+}
+
+.box {
+  border-radius: 0px;
+  background-color: white;
+  border: white;
+  box-shadow: 0 4px 8px 0 rgba(56, 56, 56, 0.2), 0 6px 20px 0 rgba(56, 56, 56, 0.19);
+  padding: 30px;
+}
+
+

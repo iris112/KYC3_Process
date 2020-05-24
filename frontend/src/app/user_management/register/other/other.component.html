@@ -1,0 +1,724 @@
+<form #otherForm="ngForm" class="editForm" novalidate>
+        <div class="tab-pane fade in active">
+            <h4 class="head text-center">{{title}}</h4>
+            <br/>
+            <div class='row'>
+                <div class='col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10'>
+                        <div class="row">
+                                <div class='col-xs-12 col-sm-6'>
+                                        <div class="form-group">
+                                                <label class="control-label" for="firstname"><b>First Name:</b></label>  
+                                                <input class="form-control input-md" #firstname="ngModel" required id="firstname" pattern="^(?!\s*$).+" name="firstname" type="text" maxlength="65" placeholder="First Name" [(ngModel)]="other.firstName" style="text-transform: uppercase">   
+                                                <div class="alert alert-danger" *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)">First name is required.</div>
+                                        </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-6'>
+                                        <div class="form-group">
+                                                <label class="control-label" for="lastname"><b>Last Name:</b></label>  
+                                                <input class="form-control input-md" #lastname="ngModel" required id="lastname" pattern="^(?!\s*$).+" name="lastname" type="text" maxlength="65" placeholder="Last Name" [(ngModel)]="other.lastName" style="text-transform: uppercase">
+                                                <div class="alert alert-danger" *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">Last name is required.</div>
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div class='col-xs-12 col-sm-6'>
+                                        <div class="form-group">
+                                                <label class="control-label" for="dateOfBirth" style="font-size: 16px;"><b>Date of birth </b>(dd/mm/yyyy) <b>: *</b></label>
+                                                <input type="text" #dateOfBirth="ngModel" required id="dateOfBirth" name="dateOfBirth" [(ngModel)]="other.dateOfBirth"
+                                                placeholder="Date of birth"
+                                                class="form-control input-md"
+                                                bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default', showWeekNumbers: false}" [minDate]="minDate" [maxDate]="maxDate" required>
+                                                <div class="alert alert-danger" *ngIf="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)">Date of birth is required</div>
+                                        </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-6'>
+                                        <div class="form-group">
+                                                <label class="control-label" for="nationality" style="font-size: 16px;"><b>Nationality: *</b></label>
+                                                <ng-select id="nationality" name="nationality" class="ng-control" [items]="nationalities" #nationalityy="ngModel"
+                                                [searchable]="true"
+                                                [multiple]="true"
+                                                [(ngModel)]="nationality"
+                                                bindLabel="label"
+                                                bindValue="value"
+                                                placeholder="Start typing a nationality..."
+                                                (change)=isNationalityFilled()
+                                                required
+                                                >
+                                                </ng-select>
+                                
+                                                <!-- <input class="form-control input-md" #nationality="ngModel" required id="nationality" name="nationality" type="text" placeholder="Nationality" [(ngModel)]="personal.nationality"> -->
+                                                <div class="alert alert-danger" *ngIf="(nationalityy.invalid || !nationalityFilled) && (nationalityy.dirty || nationalityy.touched)">Nationality is required</div>
+                                        </div>
+                                </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                                <div class='col-xs-12 col-sm-6'>
+                                        <div class="form-group">
+                                                <label class="control-label" for="addressStreet" style="font-size: 16px;"><b>Street Address: *</b></label>  
+                                                <input class="form-control input-md" #addressStreet="ngModel" required id="addressStreet" name="addressStreet" pattern="^(?!\s*$).+" type="text" placeholder="Street Address" [(ngModel)]="other.addressStreet">
+                                                <div class="alert alert-danger" *ngIf="addressStreet.invalid && (addressStreet.dirty || addressStreet.touched)">Street Address is required</div>
+                                        </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-6'>
+                                        <div class="form-group">
+                                                <label class="control-label" for="addressNumber" style="font-size: 16px;"><b>House Number: *</b></label>  
+                                                <input class="form-control input-md" #addressNumber="ngModel" required id="addressNumber" name="addressNumber" pattern="^(?!\s*$).+" type="text" placeholder="No" [(ngModel)]="other.addressNumber">
+                                                <div class="alert alert-danger" *ngIf="addressNumber.invalid && (addressNumber.dirty || addressNumber.touched)">House number is required</div>
+                                        </div>
+                                </div>
+                        </div>   
+                        <div class="row">
+                        <div class='col-xs-12 col-sm-6'>
+                                <div class="form-group">
+                                        <label class="control-label" for="addressCity" style="font-size: 16px;"><b>City: *</b></label>  
+                                        <input class="form-control input-md" #addressCity="ngModel" required id="addressCity" name="addressCity" pattern="^(?!\s*$).+" type="text" placeholder="City" [(ngModel)]="other.addressCity">
+                                        <div class="alert alert-danger" *ngIf="addressCity.invalid && (addressCity.dirty || addressCity.touched)">State is required</div>
+                                </div>
+                        </div>
+                        <div class='col-xs-12 col-sm-6'>
+                                <div class="form-group">
+                                <label class="control-label" for="addressZIP" style="font-size: 16px;"><b>ZIP/Postal Code: *</b></label>  
+                                <input class="form-control input-md" #addressZIP="ngModel" required id="addressZIP" name="addressZIP" type="text" pattern="^(?!\s*$).+" placeholder="ZIP" [(ngModel)]="other.addressZIP">
+                                <div class="alert alert-danger" *ngIf="addressZIP.invalid && (addressZIP.dirty || addressZIP.touched)">Zip is required</div>
+                                </div>  
+                        </div> 
+                        </div>
+                        <div class="row">
+                        <div class='col-xs-12 col-sm-6'>
+                                <div class="form-group">
+                                        <label class="control-label" for="addressCountry" style="font-size: 16px;"><b>Country: *</b></label>
+                                        <ng-select [searchable]="true" id="addressCountry" class="ng-control" name="addressCountry" [(ngModel)]="other.addressCountry" #addresssCountry="ngModel" placeholder="Start typing a country..." (change)=isAddressCountryFilled() required>
+                                                <ng-option value="AF">Afghanistan</ng-option>
+                                                <ng-option value="AL">Albania</ng-option>
+                                                <ng-option value="DZ">Algeria</ng-option>
+                                                <ng-option value="AS">American Samoa</ng-option>
+                                                <ng-option value="AD">Andorra</ng-option>
+                                                <ng-option value="AO">Angola</ng-option>
+                                                <ng-option value="AI">Anguilla</ng-option>
+                                                <ng-option value="AQ">Antarctica</ng-option>
+                                                <ng-option value="AG">Antigua and Barbuda</ng-option>
+                                                <ng-option value="AR">Argentina</ng-option>
+                                                <ng-option value="AM">Armenia</ng-option>
+                                                <ng-option value="AW">Aruba</ng-option>
+                                                <ng-option value="AU">Australia</ng-option>
+                                                <ng-option value="AT">Austria</ng-option>
+                                                <ng-option value="AZ">Azerbaijan</ng-option>
+                                                <ng-option value="BS">Bahamas</ng-option>
+                                                <ng-option value="BH">Bahrain</ng-option>
+                                                <ng-option value="BD">Bangladesh</ng-option>
+                                                <ng-option value="BB">Barbados</ng-option>
+                                                <ng-option value="BY">Belarus</ng-option>
+                                                <ng-option value="BE">Belgium</ng-option>
+                                                <ng-option value="BZ">Belize</ng-option>
+                                                <ng-option value="BJ">Benin</ng-option>
+                                                <ng-option value="BM">Bermuda</ng-option>
+                                                <ng-option value="BT">Bhutan</ng-option>
+                                                <ng-option value="BO">Bolivia</ng-option>
+                                                <ng-option value="BQ">Bonaire, Sint Eustatius and Saba</ng-option>
+                                                <ng-option value="BA">Bosnia and Herzegovina</ng-option>
+                                                <ng-option value="BW">Botswana</ng-option>
+                                                <ng-option value="BV">Bouvet Island</ng-option>
+                                                <ng-option value="BR">Brazil</ng-option>
+                                                <ng-option value="IO">British Indian Ocean Territory</ng-option>
+                                                <ng-option value="BN">Brunei Darussalam</ng-option>
+                                                <ng-option value="BG">Bulgaria</ng-option>
+                                                <ng-option value="BF">Burkina Faso</ng-option>
+                                                <ng-option value="BI">Burundi</ng-option>
+                                                <ng-option value="KH">Cambodia</ng-option>
+                                                <ng-option value="CM">Cameroon</ng-option>
+                                                <ng-option value="CA">Canada</ng-option>
+                                                <ng-option value="CV">Cape Verde</ng-option>
+                                                <ng-option value="KY">Cayman Islands</ng-option>
+                                                <ng-option value="CF">Central African Republic</ng-option>
+                                                <ng-option value="TD">Chad</ng-option>
+                                                <ng-option value="CL">Chile</ng-option>
+                                                <ng-option value="CN">China</ng-option>
+                                                <ng-option value="CX">Christmas Island</ng-option>
+                                                <ng-option value="CC">Cocos (Keeling) Islands</ng-option>
+                                                <ng-option value="CO">Colombia</ng-option>
+                                                <ng-option value="KM">Comoros</ng-option>
+                                                <ng-option value="CG">Congo</ng-option>
+                                                <ng-option value="CD">Congo, the Democratic Republic of the</ng-option>
+                                                <ng-option value="CK">Cook Islands</ng-option>
+                                                <ng-option value="CR">Costa Rica</ng-option>
+                                                <ng-option value="CI">Côte d'Ivoire</ng-option>
+                                                <ng-option value="HR">Croatia</ng-option>
+                                                <ng-option value="CU">Cuba</ng-option>
+                                                <ng-option value="CW">Curaçao</ng-option>
+                                                <ng-option value="CY">Cyprus</ng-option>
+                                                <ng-option value="CZ">Czech Republic</ng-option>
+                                                <ng-option value="DK">Denmark</ng-option>
+                                                <ng-option value="DJ">Djibouti</ng-option>
+                                                <ng-option value="DM">Dominica</ng-option>
+                                                <ng-option value="DO">Dominican Republic</ng-option>
+                                                <ng-option value="EC">Ecuador</ng-option>
+                                                <ng-option value="EG">Egypt</ng-option>
+                                                <ng-option value="SV">El Salvador</ng-option>
+                                                <ng-option value="GQ">Equatorial Guinea</ng-option>
+                                                <ng-option value="ER">Eritrea</ng-option>
+                                                <ng-option value="EE">Estonia</ng-option>
+                                                <ng-option value="ET">Ethiopia</ng-option>
+                                                <ng-option value="FK">Falkland Islands (Malvinas)</ng-option>
+                                                <ng-option value="FO">Faroe Islands</ng-option>
+                                                <ng-option value="FJ">Fiji</ng-option>
+                                                <ng-option value="FI">Finland</ng-option>
+                                                <ng-option value="FR">France</ng-option>
+                                                <ng-option value="GF">French Guiana</ng-option>
+                                                <ng-option value="PF">French Polynesia</ng-option>
+                                                <ng-option value="TF">French Southern Territories</ng-option>
+                                                <ng-option value="GA">Gabon</ng-option>
+                                                <ng-option value="GM">Gambia</ng-option>
+                                                <ng-option value="GE">Georgia</ng-option>
+                                                <ng-option value="DE">Germany</ng-option>
+                                                <ng-option value="GH">Ghana</ng-option>
+                                                <ng-option value="GI">Gibraltar</ng-option>
+                                                <ng-option value="EL">Greece</ng-option>
+                                                <ng-option value="GL">Greenland</ng-option>
+                                                <ng-option value="GD">Grenada</ng-option>
+                                                <ng-option value="GP">Guadeloupe</ng-option>
+                                                <ng-option value="GU">Guam</ng-option>
+                                                <ng-option value="GT">Guatemala</ng-option>
+                                                <ng-option value="GG">Guernsey</ng-option>
+                                                <ng-option value="GN">Guinea</ng-option>
+                                                <ng-option value="GW">Guinea-Bissau</ng-option>
+                                                <ng-option value="GY">Guyana</ng-option>
+                                                <ng-option value="HT">Haiti</ng-option>
+                                                <ng-option value="HM">Heard Island and McDonald Islands</ng-option>
+                                                <ng-option value="VA">Holy See (Vatican City State)</ng-option>
+                                                <ng-option value="HN">Honduras</ng-option>
+                                                <ng-option value="HK">Hong Kong</ng-option>
+                                                <ng-option value="HU">Hungary</ng-option>
+                                                <ng-option value="IS">Iceland</ng-option>
+                                                <ng-option value="IN">India</ng-option>
+                                                <ng-option value="ID">Indonesia</ng-option>
+                                                <ng-option value="IR">Iran, Islamic Republic of</ng-option>
+                                                <ng-option value="IQ">Iraq</ng-option>
+                                                <ng-option value="IE">Ireland</ng-option>
+                                                <ng-option value="IM">Isle of Man</ng-option>
+                                                <ng-option value="IL">Israel</ng-option>
+                                                <ng-option value="IT">Italy</ng-option>
+                                                <ng-option value="JM">Jamaica</ng-option>
+                                                <ng-option value="JP">Japan</ng-option>
+                                                <ng-option value="JE">Jersey</ng-option>
+                                                <ng-option value="JO">Jordan</ng-option>
+                                                <ng-option value="KZ">Kazakhstan</ng-option>
+                                                <ng-option value="KE">Kenya</ng-option>
+                                                <ng-option value="KI">Kiribati</ng-option>
+                                                <ng-option value="KP">Korea, Democratic People's Republic of</ng-option>
+                                                <ng-option value="KR">Korea, Republic of</ng-option>
+                                                <ng-option value="KW">Kuwait</ng-option>
+                                                <ng-option value="KG">Kyrgyzstan</ng-option>
+                                                <ng-option value="LA">Lao People's Democratic Republic</ng-option>
+                                                <ng-option value="LV">Latvia</ng-option>
+                                                <ng-option value="LB">Lebanon</ng-option>
+                                                <ng-option value="LS">Lesotho</ng-option>
+                                                <ng-option value="LR">Liberia</ng-option>
+                                                <ng-option value="LY">Libya</ng-option>
+                                                <ng-option value="LI">Liechtenstein</ng-option>
+                                                <ng-option value="LT">Lithuania</ng-option>
+                                                <ng-option value="LU">Luxembourg</ng-option>
+                                                <ng-option value="MO">Macao</ng-option>
+                                                <ng-option value="MK">Macedonia, the former Yugoslav Republic of</ng-option>
+                                                <ng-option value="MG">Madagascar</ng-option>
+                                                <ng-option value="MW">Malawi</ng-option>
+                                                <ng-option value="MY">Malaysia</ng-option>
+                                                <ng-option value="MV">Maldives</ng-option>
+                                                <ng-option value="ML">Mali</ng-option>
+                                                <ng-option value="MT">Malta</ng-option>
+                                                <ng-option value="MH">Marshall Islands</ng-option>
+                                                <ng-option value="MQ">Martinique</ng-option>
+                                                <ng-option value="MR">Mauritania</ng-option>
+                                                <ng-option value="MU">Mauritius</ng-option>
+                                                <ng-option value="YT">Mayotte</ng-option>
+                                                <ng-option value="MX">Mexico</ng-option>
+                                                <ng-option value="FM">Micronesia, Federated States of</ng-option>
+                                                <ng-option value="MD">Moldova, Republic of</ng-option>
+                                                <ng-option value="MC">Monaco</ng-option>
+                                                <ng-option value="MN">Mongolia</ng-option>
+                                                <ng-option value="ME">Montenegro</ng-option>
+                                                <ng-option value="MS">Montserrat</ng-option>
+                                                <ng-option value="MA">Morocco</ng-option>
+                                                <ng-option value="MZ">Mozambique</ng-option>
+                                                <ng-option value="MM">Myanmar</ng-option>
+                                                <ng-option value="NA">Namibia</ng-option>
+                                                <ng-option value="NR">Nauru</ng-option>
+                                                <ng-option value="NP">Nepal</ng-option>
+                                                <ng-option value="NL">Netherlands</ng-option>
+                                                <ng-option value="NC">New Caledonia</ng-option>
+                                                <ng-option value="NZ">New Zealand</ng-option>
+                                                <ng-option value="NI">Nicaragua</ng-option>
+                                                <ng-option value="NE">Niger</ng-option>
+                                                <ng-option value="NG">Nigeria</ng-option>
+                                                <ng-option value="NU">Niue</ng-option>
+                                                <ng-option value="NF">Norfolk Island</ng-option>
+                                                <ng-option value="MP">Northern Mariana Islands</ng-option>
+                                                <ng-option value="NO">Norway</ng-option>
+                                                <ng-option value="OM">Oman</ng-option>
+                                                <ng-option value="PK">Pakistan</ng-option>
+                                                <ng-option value="PW">Palau</ng-option>
+                                                <ng-option value="PS">Palestinian Territory, Occupied</ng-option>
+                                                <ng-option value="PA">Panama</ng-option>
+                                                <ng-option value="PG">Papua New Guinea</ng-option>
+                                                <ng-option value="PY">Paraguay</ng-option>
+                                                <ng-option value="PE">Peru</ng-option>
+                                                <ng-option value="PH">Philippines</ng-option>
+                                                <ng-option value="PN">Pitcairn</ng-option>
+                                                <ng-option value="PL">Poland</ng-option>
+                                                <ng-option value="PT">Portugal</ng-option>
+                                                <ng-option value="PR">Puerto Rico</ng-option>
+                                                <ng-option value="QA">Qatar</ng-option>
+                                                <ng-option value="RE">Réunion</ng-option>
+                                                <ng-option value="RO">Romania</ng-option>
+                                                <ng-option value="RU">Russian Federation</ng-option>
+                                                <ng-option value="RW">Rwanda</ng-option>
+                                                <ng-option value="BL">Saint Barthélemy</ng-option>
+                                                <ng-option value="SH">Saint Helena, Ascension and Tristan da Cunha</ng-option>
+                                                <ng-option value="KN">Saint Kitts and Nevis</ng-option>
+                                                <ng-option value="LC">Saint Lucia</ng-option>
+                                                <ng-option value="MF">Saint Martin (French part)</ng-option>
+                                                <ng-option value="PM">Saint Pierre and Miquelon</ng-option>
+                                                <ng-option value="VC">Saint Vincent and the Grenadines</ng-option>
+                                                <ng-option value="WS">Samoa</ng-option>
+                                                <ng-option value="SM">San Marino</ng-option>
+                                                <ng-option value="ST">Sao Tome and Principe</ng-option>
+                                                <ng-option value="SA">Saudi Arabia</ng-option>
+                                                <ng-option value="SN">Senegal</ng-option>
+                                                <ng-option value="RS">Serbia</ng-option>
+                                                <ng-option value="SC">Seychelles</ng-option>
+                                                <ng-option value="SL">Sierra Leone</ng-option>
+                                                <ng-option value="SG">Singapore</ng-option>
+                                                <ng-option value="SX">Sint Maarten (Dutch part)</ng-option>
+                                                <ng-option value="SK">Slovakia</ng-option>
+                                                <ng-option value="SI">Slovenia</ng-option>
+                                                <ng-option value="SB">Solomon Islands</ng-option>
+                                                <ng-option value="SO">Somalia</ng-option>
+                                                <ng-option value="ZA">South Africa</ng-option>
+                                                <ng-option value="GS">South Georgia and the South Sandwich Islands</ng-option>
+                                                <ng-option value="SS">South Sudan</ng-option>
+                                                <ng-option value="ES">Spain</ng-option>
+                                                <ng-option value="LK">Sri Lanka</ng-option>
+                                                <ng-option value="SD">Sudan</ng-option>
+                                                <ng-option value="SR">Suriname</ng-option>
+                                                <ng-option value="SJ">Svalbard and Jan Mayen</ng-option>
+                                                <ng-option value="SZ">Swaziland</ng-option>
+                                                <ng-option value="SE">Sweden</ng-option>
+                                                <ng-option value="CH">Switzerland</ng-option>
+                                                <ng-option value="SY">Syrian Arab Republic</ng-option>
+                                                <ng-option value="TW">Taiwan, Province of China</ng-option>
+                                                <ng-option value="TJ">Tajikistan</ng-option>
+                                                <ng-option value="TZ">Tanzania, United Republic of</ng-option>
+                                                <ng-option value="TH">Thailand</ng-option>
+                                                <ng-option value="TL">Timor-Leste</ng-option>
+                                                <ng-option value="TG">Togo</ng-option>
+                                                <ng-option value="TK">Tokelau</ng-option>
+                                                <ng-option value="TO">Tonga</ng-option>
+                                                <ng-option value="TT">Trinidad and Tobago</ng-option>
+                                                <ng-option value="TN">Tunisia</ng-option>
+                                                <ng-option value="TR">Turkey</ng-option>
+                                                <ng-option value="TM">Turkmenistan</ng-option>
+                                                <ng-option value="TC">Turks and Caicos Islands</ng-option>
+                                                <ng-option value="TV">Tuvalu</ng-option>
+                                                <ng-option value="UG">Uganda</ng-option>
+                                                <ng-option value="UA">Ukraine</ng-option>
+                                                <ng-option value="AE">United Arab Emirates</ng-option>
+                                                <ng-option value="UK">United Kingdom</ng-option>
+                                                <ng-option value="US">United States</ng-option>
+                                                <ng-option value="UM">United States Minor Outlying Islands</ng-option>
+                                                <ng-option value="UY">Uruguay</ng-option>
+                                                <ng-option value="UZ">Uzbekistan</ng-option>
+                                                <ng-option value="VU">Vanuatu</ng-option>
+                                                <ng-option value="VE">Venezuela, Bolivarian Republic of</ng-option>
+                                                <ng-option value="VN">Viet Nam</ng-option>
+                                                <ng-option value="VG">Virgin Islands, British</ng-option>
+                                                <ng-option value="VI">Virgin Islands, U.S.</ng-option>
+                                                <ng-option value="WF">Wallis and Futuna</ng-option>
+                                                <ng-option value="EH">Western Sahara</ng-option>
+                                                <ng-option value="YE">Yemen</ng-option>
+                                                <ng-option value="ZM">Zambia</ng-option>
+                                                <ng-option value="ZW">Zimbabwe</ng-option>
+                                                </ng-select>
+                                        <div class="alert alert-danger" *ngIf="(addresssCountry.invalid || !addressCountryFilled) && (addresssCountry.dirty || addresssCountry.touched)">Country is required</div>
+                                </div>  
+                        </div>
+                        <div class='col-xs-12 col-sm-6'>
+                                <div class="form-group">
+                                        <label class="control-label" for="taxCountry" style="font-size: 16px;"><b>Tax Country: *</b></label>  
+                                        <ng-select [searchable]="true" id="taxCountry" class="ng-control" name="taxCountry" [(ngModel)]="other.taxCountry" #taxCountry="ngModel" placeholder="Start typing a country..." (change)=isTaxCountryFilled() required>
+                                                <ng-option value="AF">Afghanistan</ng-option>
+                                                <ng-option value="AL">Albania</ng-option>
+                                                <ng-option value="DZ">Algeria</ng-option>
+                                                <ng-option value="AS">American Samoa</ng-option>
+                                                <ng-option value="AD">Andorra</ng-option>
+                                                <ng-option value="AO">Angola</ng-option>
+                                                <ng-option value="AI">Anguilla</ng-option>
+                                                <ng-option value="AQ">Antarctica</ng-option>
+                                                <ng-option value="AG">Antigua and Barbuda</ng-option>
+                                                <ng-option value="AR">Argentina</ng-option>
+                                                <ng-option value="AM">Armenia</ng-option>
+                                                <ng-option value="AW">Aruba</ng-option>
+                                                <ng-option value="AU">Australia</ng-option>
+                                                <ng-option value="AT">Austria</ng-option>
+                                                <ng-option value="AZ">Azerbaijan</ng-option>
+                                                <ng-option value="BS">Bahamas</ng-option>
+                                                <ng-option value="BH">Bahrain</ng-option>
+                                                <ng-option value="BD">Bangladesh</ng-option>
+                                                <ng-option value="BB">Barbados</ng-option>
+                                                <ng-option value="BY">Belarus</ng-option>
+                                                <ng-option value="BE">Belgium</ng-option>
+                                                <ng-option value="BZ">Belize</ng-option>
+                                                <ng-option value="BJ">Benin</ng-option>
+                                                <ng-option value="BM">Bermuda</ng-option>
+                                                <ng-option value="BT">Bhutan</ng-option>
+                                                <ng-option value="BO">Bolivia</ng-option>
+                                                <ng-option value="BQ">Bonaire, Sint Eustatius and Saba</ng-option>
+                                                <ng-option value="BA">Bosnia and Herzegovina</ng-option>
+                                                <ng-option value="BW">Botswana</ng-option>
+                                                <ng-option value="BV">Bouvet Island</ng-option>
+                                                <ng-option value="BR">Brazil</ng-option>
+                                                <ng-option value="IO">British Indian Ocean Territory</ng-option>
+                                                <ng-option value="BN">Brunei Darussalam</ng-option>
+                                                <ng-option value="BG">Bulgaria</ng-option>
+                                                <ng-option value="BF">Burkina Faso</ng-option>
+                                                <ng-option value="BI">Burundi</ng-option>
+                                                <ng-option value="KH">Cambodia</ng-option>
+                                                <ng-option value="CM">Cameroon</ng-option>
+                                                <ng-option value="CA">Canada</ng-option>
+                                                <ng-option value="CV">Cape Verde</ng-option>
+                                                <ng-option value="KY">Cayman Islands</ng-option>
+                                                <ng-option value="CF">Central African Republic</ng-option>
+                                                <ng-option value="TD">Chad</ng-option>
+                                                <ng-option value="CL">Chile</ng-option>
+                                                <ng-option value="CN">China</ng-option>
+                                                <ng-option value="CX">Christmas Island</ng-option>
+                                                <ng-option value="CC">Cocos (Keeling) Islands</ng-option>
+                                                <ng-option value="CO">Colombia</ng-option>
+                                                <ng-option value="KM">Comoros</ng-option>
+                                                <ng-option value="CG">Congo</ng-option>
+                                                <ng-option value="CD">Congo, the Democratic Republic of the</ng-option>
+                                                <ng-option value="CK">Cook Islands</ng-option>
+                                                <ng-option value="CR">Costa Rica</ng-option>
+                                                <ng-option value="CI">Côte d'Ivoire</ng-option>
+                                                <ng-option value="HR">Croatia</ng-option>
+                                                <ng-option value="CU">Cuba</ng-option>
+                                                <ng-option value="CW">Curaçao</ng-option>
+                                                <ng-option value="CY">Cyprus</ng-option>
+                                                <ng-option value="CZ">Czech Republic</ng-option>
+                                                <ng-option value="DK">Denmark</ng-option>
+                                                <ng-option value="DJ">Djibouti</ng-option>
+                                                <ng-option value="DM">Dominica</ng-option>
+                                                <ng-option value="DO">Dominican Republic</ng-option>
+                                                <ng-option value="EC">Ecuador</ng-option>
+                                                <ng-option value="EG">Egypt</ng-option>
+                                                <ng-option value="SV">El Salvador</ng-option>
+                                                <ng-option value="GQ">Equatorial Guinea</ng-option>
+                                                <ng-option value="ER">Eritrea</ng-option>
+                                                <ng-option value="EE">Estonia</ng-option>
+                                                <ng-option value="ET">Ethiopia</ng-option>
+                                                <ng-option value="FK">Falkland Islands (Malvinas)</ng-option>
+                                                <ng-option value="FO">Faroe Islands</ng-option>
+                                                <ng-option value="FJ">Fiji</ng-option>
+                                                <ng-option value="FI">Finland</ng-option>
+                                                <ng-option value="FR">France</ng-option>
+                                                <ng-option value="GF">French Guiana</ng-option>
+                                                <ng-option value="PF">French Polynesia</ng-option>
+                                                <ng-option value="TF">French Southern Territories</ng-option>
+                                                <ng-option value="GA">Gabon</ng-option>
+                                                <ng-option value="GM">Gambia</ng-option>
+                                                <ng-option value="GE">Georgia</ng-option>
+                                                <ng-option value="DE">Germany</ng-option>
+                                                <ng-option value="GH">Ghana</ng-option>
+                                                <ng-option value="GI">Gibraltar</ng-option>
+                                                <ng-option value="EL">Greece</ng-option>
+                                                <ng-option value="GL">Greenland</ng-option>
+                                                <ng-option value="GD">Grenada</ng-option>
+                                                <ng-option value="GP">Guadeloupe</ng-option>
+                                                <ng-option value="GU">Guam</ng-option>
+                                                <ng-option value="GT">Guatemala</ng-option>
+                                                <ng-option value="GG">Guernsey</ng-option>
+                                                <ng-option value="GN">Guinea</ng-option>
+                                                <ng-option value="GW">Guinea-Bissau</ng-option>
+                                                <ng-option value="GY">Guyana</ng-option>
+                                                <ng-option value="HT">Haiti</ng-option>
+                                                <ng-option value="HM">Heard Island and McDonald Islands</ng-option>
+                                                <ng-option value="VA">Holy See (Vatican City State)</ng-option>
+                                                <ng-option value="HN">Honduras</ng-option>
+                                                <ng-option value="HK">Hong Kong</ng-option>
+                                                <ng-option value="HU">Hungary</ng-option>
+                                                <ng-option value="IS">Iceland</ng-option>
+                                                <ng-option value="IN">India</ng-option>
+                                                <ng-option value="ID">Indonesia</ng-option>
+                                                <ng-option value="IR">Iran, Islamic Republic of</ng-option>
+                                                <ng-option value="IQ">Iraq</ng-option>
+                                                <ng-option value="IE">Ireland</ng-option>
+                                                <ng-option value="IM">Isle of Man</ng-option>
+                                                <ng-option value="IL">Israel</ng-option>
+                                                <ng-option value="IT">Italy</ng-option>
+                                                <ng-option value="JM">Jamaica</ng-option>
+                                                <ng-option value="JP">Japan</ng-option>
+                                                <ng-option value="JE">Jersey</ng-option>
+                                                <ng-option value="JO">Jordan</ng-option>
+                                                <ng-option value="KZ">Kazakhstan</ng-option>
+                                                <ng-option value="KE">Kenya</ng-option>
+                                                <ng-option value="KI">Kiribati</ng-option>
+                                                <ng-option value="KP">Korea, Democratic People's Republic of</ng-option>
+                                                <ng-option value="KR">Korea, Republic of</ng-option>
+                                                <ng-option value="KW">Kuwait</ng-option>
+                                                <ng-option value="KG">Kyrgyzstan</ng-option>
+                                                <ng-option value="LA">Lao People's Democratic Republic</ng-option>
+                                                <ng-option value="LV">Latvia</ng-option>
+                                                <ng-option value="LB">Lebanon</ng-option>
+                                                <ng-option value="LS">Lesotho</ng-option>
+                                                <ng-option value="LR">Liberia</ng-option>
+                                                <ng-option value="LY">Libya</ng-option>
+                                                <ng-option value="LI">Liechtenstein</ng-option>
+                                                <ng-option value="LT">Lithuania</ng-option>
+                                                <ng-option value="LU">Luxembourg</ng-option>
+                                                <ng-option value="MO">Macao</ng-option>
+                                                <ng-option value="MK">Macedonia, the former Yugoslav Republic of</ng-option>
+                                                <ng-option value="MG">Madagascar</ng-option>
+                                                <ng-option value="MW">Malawi</ng-option>
+                                                <ng-option value="MY">Malaysia</ng-option>
+                                                <ng-option value="MV">Maldives</ng-option>
+                                                <ng-option value="ML">Mali</ng-option>
+                                                <ng-option value="MT">Malta</ng-option>
+                                                <ng-option value="MH">Marshall Islands</ng-option>
+                                                <ng-option value="MQ">Martinique</ng-option>
+                                                <ng-option value="MR">Mauritania</ng-option>
+                                                <ng-option value="MU">Mauritius</ng-option>
+                                                <ng-option value="YT">Mayotte</ng-option>
+                                                <ng-option value="MX">Mexico</ng-option>
+                                                <ng-option value="FM">Micronesia, Federated States of</ng-option>
+                                                <ng-option value="MD">Moldova, Republic of</ng-option>
+                                                <ng-option value="MC">Monaco</ng-option>
+                                                <ng-option value="MN">Mongolia</ng-option>
+                                                <ng-option value="ME">Montenegro</ng-option>
+                                                <ng-option value="MS">Montserrat</ng-option>
+                                                <ng-option value="MA">Morocco</ng-option>
+                                                <ng-option value="MZ">Mozambique</ng-option>
+                                                <ng-option value="MM">Myanmar</ng-option>
+                                                <ng-option value="NA">Namibia</ng-option>
+                                                <ng-option value="NR">Nauru</ng-option>
+                                                <ng-option value="NP">Nepal</ng-option>
+                                                <ng-option value="NL">Netherlands</ng-option>
+                                                <ng-option value="NC">New Caledonia</ng-option>
+                                                <ng-option value="NZ">New Zealand</ng-option>
+                                                <ng-option value="NI">Nicaragua</ng-option>
+                                                <ng-option value="NE">Niger</ng-option>
+                                                <ng-option value="NG">Nigeria</ng-option>
+                                                <ng-option value="NU">Niue</ng-option>
+                                                <ng-option value="NF">Norfolk Island</ng-option>
+                                                <ng-option value="MP">Northern Mariana Islands</ng-option>
+                                                <ng-option value="NO">Norway</ng-option>
+                                                <ng-option value="OM">Oman</ng-option>
+                                                <ng-option value="PK">Pakistan</ng-option>
+                                                <ng-option value="PW">Palau</ng-option>
+                                                <ng-option value="PS">Palestinian Territory, Occupied</ng-option>
+                                                <ng-option value="PA">Panama</ng-option>
+                                                <ng-option value="PG">Papua New Guinea</ng-option>
+                                                <ng-option value="PY">Paraguay</ng-option>
+                                                <ng-option value="PE">Peru</ng-option>
+                                                <ng-option value="PH">Philippines</ng-option>
+                                                <ng-option value="PN">Pitcairn</ng-option>
+                                                <ng-option value="PL">Poland</ng-option>
+                                                <ng-option value="PT">Portugal</ng-option>
+                                                <ng-option value="PR">Puerto Rico</ng-option>
+                                                <ng-option value="QA">Qatar</ng-option>
+                                                <ng-option value="RE">Réunion</ng-option>
+                                                <ng-option value="RO">Romania</ng-option>
+                                                <ng-option value="RU">Russian Federation</ng-option>
+                                                <ng-option value="RW">Rwanda</ng-option>
+                                                <ng-option value="BL">Saint Barthélemy</ng-option>
+                                                <ng-option value="SH">Saint Helena, Ascension and Tristan da Cunha</ng-option>
+                                                <ng-option value="KN">Saint Kitts and Nevis</ng-option>
+                                                <ng-option value="LC">Saint Lucia</ng-option>
+                                                <ng-option value="MF">Saint Martin (French part)</ng-option>
+                                                <ng-option value="PM">Saint Pierre and Miquelon</ng-option>
+                                                <ng-option value="VC">Saint Vincent and the Grenadines</ng-option>
+                                                <ng-option value="WS">Samoa</ng-option>
+                                                <ng-option value="SM">San Marino</ng-option>
+                                                <ng-option value="ST">Sao Tome and Principe</ng-option>
+                                                <ng-option value="SA">Saudi Arabia</ng-option>
+                                                <ng-option value="SN">Senegal</ng-option>
+                                                <ng-option value="RS">Serbia</ng-option>
+                                                <ng-option value="SC">Seychelles</ng-option>
+                                                <ng-option value="SL">Sierra Leone</ng-option>
+                                                <ng-option value="SG">Singapore</ng-option>
+                                                <ng-option value="SX">Sint Maarten (Dutch part)</ng-option>
+                                                <ng-option value="SK">Slovakia</ng-option>
+                                                <ng-option value="SI">Slovenia</ng-option>
+                                                <ng-option value="SB">Solomon Islands</ng-option>
+                                                <ng-option value="SO">Somalia</ng-option>
+                                                <ng-option value="ZA">South Africa</ng-option>
+                                                <ng-option value="GS">South Georgia and the South Sandwich Islands</ng-option>
+                                                <ng-option value="SS">South Sudan</ng-option>
+                                                <ng-option value="ES">Spain</ng-option>
+                                                <ng-option value="LK">Sri Lanka</ng-option>
+                                                <ng-option value="SD">Sudan</ng-option>
+                                                <ng-option value="SR">Suriname</ng-option>
+                                                <ng-option value="SJ">Svalbard and Jan Mayen</ng-option>
+                                                <ng-option value="SZ">Swaziland</ng-option>
+                                                <ng-option value="SE">Sweden</ng-option>
+                                                <ng-option value="CH">Switzerland</ng-option>
+                                                <ng-option value="SY">Syrian Arab Republic</ng-option>
+                                                <ng-option value="TW">Taiwan, Province of China</ng-option>
+                                                <ng-option value="TJ">Tajikistan</ng-option>
+                                                <ng-option value="TZ">Tanzania, United Republic of</ng-option>
+                                                <ng-option value="TH">Thailand</ng-option>
+                                                <ng-option value="TL">Timor-Leste</ng-option>
+                                                <ng-option value="TG">Togo</ng-option>
+                                                <ng-option value="TK">Tokelau</ng-option>
+                                                <ng-option value="TO">Tonga</ng-option>
+                                                <ng-option value="TT">Trinidad and Tobago</ng-option>
+                                                <ng-option value="TN">Tunisia</ng-option>
+                                                <ng-option value="TR">Turkey</ng-option>
+                                                <ng-option value="TM">Turkmenistan</ng-option>
+                                                <ng-option value="TC">Turks and Caicos Islands</ng-option>
+                                                <ng-option value="TV">Tuvalu</ng-option>
+                                                <ng-option value="UG">Uganda</ng-option>
+                                                <ng-option value="UA">Ukraine</ng-option>
+                                                <ng-option value="AE">United Arab Emirates</ng-option>
+                                                <ng-option value="UK">United Kingdom</ng-option>
+                                                <ng-option value="US">United States</ng-option>
+                                                <ng-option value="UM">United States Minor Outlying Islands</ng-option>
+                                                <ng-option value="UY">Uruguay</ng-option>
+                                                <ng-option value="UZ">Uzbekistan</ng-option>
+                                                <ng-option value="VU">Vanuatu</ng-option>
+                                                <ng-option value="VE">Venezuela, Bolivarian Republic of</ng-option>
+                                                <ng-option value="VN">Viet Nam</ng-option>
+                                                <ng-option value="VG">Virgin Islands, British</ng-option>
+                                                <ng-option value="VI">Virgin Islands, U.S.</ng-option>
+                                                <ng-option value="WF">Wallis and Futuna</ng-option>
+                                                <ng-option value="EH">Western Sahara</ng-option>
+                                                <ng-option value="YE">Yemen</ng-option>
+                                                <ng-option value="ZM">Zambia</ng-option>
+                                                <ng-option value="ZW">Zimbabwe</ng-option>
+                                                </ng-select>
+                                        <div class="alert alert-danger" *ngIf="(taxCountry.invalid || !taxCountryFilled) && (taxCountry.dirty || taxCountry.touched)">Tax country is required</div>
+                                </div>  
+                        </div>  
+                        </div>
+                        <div class="row">
+                                <div class='col-xs-12 col-sm-6'>
+                                        <div class="form-group">
+                                                <label class="control-label" for="proofOfResidence" style="font-size: 16px;"><b>Proof of Residence </b>(jpg/jpeg/png)<b>: *</b></label>  
+                                                <input class="form-control input-md" #proofOfResidence required id="proofOfResidence" name="proofOfResidence" type="file" placeholder="proofOfResidence" (change)="processProofOfResidence($event.target.files)" style="border-left: 5px solid #a94442;">
+                                                <div class="alert alert-danger" *ngIf="!proofOfResidenceFilled && (proofOfResidence.dirty || proofOfResidence.touched)">Proof of residence is required</div>
+                                        </div>  
+                                </div> 
+                        </div>
+                </div>
+                <div class='row' style="padding-left: 15px;">
+                        <div class='col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10'>
+                        <hr>
+                        <div class="row">
+                                <div class='col-xs-12 col-sm-6'>
+                                        <div class="form-group">
+                                                <label class="control-label" for="amount" style="font-size: 16px;"><b>Amount of tokens: *</b></label>  
+                                                <input class="form-control input-md" #amount="ngModel" required id="amount" name="amount" type="text" pattern="^[0-9]+(\.[0-9]{1,10})?$" placeholder="Amount" [(ngModel)]="other.amount">
+                                                <div class="alert alert-danger" *ngIf="amount.invalid && (amount.dirty || amount.touched)">Amount is required</div>
+                                        </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-6'>
+                                        <div class="form-group">
+                                                <label class="control-label" for="currencyType" style="font-size: 16px;"><b>Purchase with: *</b></label>  
+                                                <ng-select [searchable]="true" id="currencyType" class="ng-control" name="currencyType" [(ngModel)]="other.currencyType" #currencyType="ngModel" placeholder="Select currency" (change)=isCurrencyFilled() required>
+                                                        <ng-option value="BTC">BTC</ng-option>
+                                                        <ng-option value="ETH" selected="selected">ETH</ng-option>
+                                                        <ng-option value="EUR">EUR</ng-option>
+                                                        <ng-option value="USD">USD</ng-option>
+                                                </ng-select>
+                                                <div class="alert alert-danger" *ngIf="(currencyType.invalid || !currencyFilled) && (currencyType.dirty || currencyType.touched)">Currency is required</div>
+                                        </div>
+                                </div>
+                        </div>
+                    <div class="row">
+                            <div class='col-xs-12 col-sm-12'>
+                                <div class="form-group">           
+                                        <label class="control-label" for="walletAddress" style="font-size: 16px;"><b>Wallet Address: *</b></label>  
+                                        <input class="form-control input-md" #walletAddress="ngModel" required id="walletAddress" name="walletAddress" type="text" maxlength="256" placeholder="Wallet address" [(ngModel)]="other.walletAddress">
+                                        <div class="alert alert-danger" *ngIf="walletAddress.invalid && (walletAddress.dirty || walletAddress.touched)">Wallet address is required and must be valid</div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class='col-xs-12 col-sm-6'>
+                                <div class="form-group">
+                                        <label class="control-label" for="sourceOfFunds" style="font-size: 16px;"><b>Source Of Funds: *</b></label> 
+                                        <div class="radio">
+                                            <label style="font-size: 16px;">
+                                                <input type="radio" #sourceOfFunds="ngModel" required name="sourceOfFunds" [(ngModel)]="other.sourceOfFunds" value="Mining">
+                                                Mining
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label style="font-size: 16px;">
+                                                <input type="radio" #sourceOfFunds="ngModel" required name="sourceOfFunds" [(ngModel)]="other.sourceOfFunds" value="Savings">
+                                                Savings
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label style="font-size: 16px;">
+                                                <input type="radio" #sourceOfFunds="ngModel" required name="sourceOfFunds" [(ngModel)]="other.sourceOfFunds" value="Salary">
+                                                Salary
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                                <label style="font-size: 16px;">
+                                                    <input type="radio" #sourceOfFunds="ngModel" required name="sourceOfFunds" [(ngModel)]="other.sourceOfFunds" value="Investments">
+                                                    Investments
+                                                </label>
+                                        </div>
+                                        <div class="radio">
+                                                <label style="font-size: 16px;">
+                                                    <input type="radio" #sourceOfFunds="ngModel" required name="sourceOfFunds" [(ngModel)]="other.sourceOfFunds" value="Other">
+                                                    Other
+                                                </label>
+                                        </div>
+                                        <div class="alert alert-danger" *ngIf="sourceOfFunds.invalid && (sourceOfFunds.dirty || sourceOfFunds.touched)">Source of funds is required</div>
+                                </div>
+                            </div>
+                    </div>   
+                    <hr>
+                    <div class="row">
+                        <div class='col-xs-12 col-sm-6'>
+                                <div class="form-group">
+                                        <label class="control-label" for="telegramName" style="font-size: 16px;"><b>Telegram name:</b></label>  
+                                        <input class="form-control input-md" #telegramName="ngModel" id="telegramName" name="telegramName" type="text" maxlength="65" placeholder="Telegram name" [(ngModel)]="other.telegramName">
+                                </div>
+                        </div>
+                        <div class='col-xs-12 col-sm-6'>
+                                <div class="form-group">
+                                        <label class="control-label" for="twitterName" style="font-size: 16px;"><b>Twitter name:</b></label>  
+                                        <input class="form-control input-md" #twitterName="ngModel" id="twitterName" name="twitterName" type="text" maxlength="65" placeholder="Twitter name" [(ngModel)]="other.twitterName">
+                                </div>
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class='col-xs-12 col-sm-6'>
+                                <div class="form-group">
+                                        <label class="control-label" for="linkedinProfile" style="font-size: 16px;"><b>LinkedIn Profile:</b></label>  
+                                        <input class="form-control input-md" #linkedinProfile="ngModel" id="linkedinProfile" name="linkedinProfile" type="text" maxlength="512" placeholder="LinkedIn profile" [(ngModel)]="other.linkedinProfile">
+                                </div> 
+                        </div>
+                        <div class='col-xs-12 col-sm-6'>
+                                <div class="form-group">
+                                        <label class="control-label" for="facebookProfile" style="font-size: 16px;"><b>Facebook Profile:</b></label>  
+                                        <input class="form-control input-md" #facebookProfile="ngModel" id="facebookProfile" name="facebookProfile" type="text" maxlength="512" placeholder="Facebook profile" [(ngModel)]="other.facebookProfile">
+                                </div> 
+                        </div>  
+                    </div> 
+                </div>
+    
+                <div class="form-group text-center">
+                        <button type="button" class="btn btn-outline-rounded btn-default" (click)="goToPrevious(otherForm)"> <span style="margin-right:10px;" class="glyphicon glyphicon-arrow-left"></span> Previous</button>
+                        <button type="button" class="btn btn-outline-rounded btn-info" [disabled]="!otherForm.valid || !formOk" (click)="goToNext(otherForm)"> Next <span style="margin-left:10px;" class="glyphicon glyphicon-arrow-right"></span></button>
+                        <img [hidden]="!loading" src="{{loadingImg}}" width="35" />
+                </div>
+            </div>
+        
+        </div>
+        </div>
+    </form>
+
+        

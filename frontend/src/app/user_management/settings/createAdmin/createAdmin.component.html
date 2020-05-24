@@ -1,0 +1,17 @@
+<form #createAdminForm="ngForm" class="editForm" novalidate>
+    <h3 class="text-center">Create Admin</h3><br>
+    <div class="form-group">
+        <label class="control-label" for="username"><b>Username:</b></label>  
+        <input class="form-control input-md" #userNamee="ngModel" required id="userName" name="userName" type="text" pattern="^(?!\s*$).+" maxlength="65" placeholder="Username" [(ngModel)]="userName">   
+        <div class="alert alert-danger" [hidden]="userNamee.valid">Username is required</div>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="email"><b>Email:</b></label>  
+        <input class="form-control input-md" #emaill="ngModel" required id="email" name="email" type="text" pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" placeholder="Email" [(ngModel)]="email">
+        <div class="alert alert-danger" [hidden]="emaill.valid">Email is required and must be valid</div>
+    </div>
+
+    <div class="form-group">
+    <button type="button" class="btn btn-primary" [disabled]="!createAdminForm.valid" [style.background-color]="mainColor" (click)="createAdmin(createAdminForm)"> Create Admin </button>
+    </div>
+</form>

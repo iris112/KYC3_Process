@@ -1,0 +1,134 @@
+<form #personalForm="ngForm" class="editForm" novalidate>
+        <div class="tab-pane fade in active">
+            <h4 class="head text-center">{{title}}</h4>
+            <br/>
+            <div class='row'>
+                <div class='col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8'>
+                    <div class="row" style="font-size: 16px;">
+                        Please indicate what kind of document you will be using:
+                        <div style="height: 15px;"></div>
+                        <div class="radio">
+                                <label style="font-size: 15px;">
+                                    <input type="radio" #documentTypee="ngModel" required name="documentType" [(ngModel)]="documentType" value="passport" (change)="processType('passport')">
+                                    Passport
+                                </label>
+                        </div>
+                        <div class="radio">
+                                <label style="font-size: 15px;">
+                                    <input type="radio" #documentTypee="ngModel" required name="documentType" [(ngModel)]="documentType" value="id" (change)="processType('id')">
+                                    ID Card
+                                </label>
+                        </div>
+                    </div>
+                    <div *ngIf="documentType == 'id'">
+                        <div class="row">
+                                <div class="col-sm-12">
+                                        <div class="row">
+                                                <div style="height: 10px"></div>
+                                                <ol style="text-align: justify;font-size: 16px;padding-left: 15px;">
+                                                        <li>Make sure that your camera lens is clean.</li>
+                                                        <li>Hold your identity card in front of the camera.</li>
+                                                        <li>Make sure that all four sides of your card are clearly visible in the frame.</li>
+                                                        <li>When you are ready, press <b>ENTER</b> to take a picture of the front side.</li>
+                                                        <li>Turn your identity card around, position it and press <b>ENTER</b> to take a picture of the back side.</li>
+                                                </ol>
+                                                <div style="height: 20px;"></div>
+
+                                        </div>
+                                        <div class="row text-center">
+                                                        <div class="col-sm-8 text-center" style="margin-top: 200px;padding-left: 0px;">
+                                                                <div class="overlay-id">
+                                                                        <img id="overlay-image" src="../../../../assets/images/id.png" width="90%" style="opacity: 0.6;z-index: 2;position: absolute;margin-top: -115px;"/>
+                                                                        <video #idVideo id="video" width="100%" style="position: absolute;z-index: 1;margin-top: -115px;" autoplay></video>  
+                                                                        <div style="height: 140px;"></div>
+                                                                </div>
+                                                        </div>
+                                                        <div class="col-sm-4 text-center">
+                                                                <canvas #idCanvas id="canvas" width="980" height="540" style="display:none;"></canvas>
+                                                                <div *ngIf="captures.length == 0">
+                                                                        <div id="preview-panel" class="text-center" style="margin-top: -278px;">  
+                                                                                <ul class="text-center" style="list-style-type: none;margin-left: -35px;margin-top: -6px;">
+                                                                                        <li class="text-center" style="display: inline-block">
+                                                                                                <!-- <img src="../../../../assets/images/id_placeholder.png" /> -->
+                                                                                        </li>
+                                                                                        <div style="height: 12px;"></div>
+                                                                                        <li class="text-center" style="display: inline-block">
+                                                                                                <!-- <img src="../../../../assets/images/id_placeholder.png" /> -->
+                                                                                        </li>
+                                                                                </ul>
+                                                                        </div>
+                                                                </div>
+                                                                <div *ngIf="captures.length == 1">
+                                                                        <div id="preview-panel" class="text-center" style="margin-top: 28px;">  
+                                                                                <ul class="text-center" style="list-style-type: none;margin-left: -35px;margin-top: -6px;">
+                                                                                        <li class="text-center" style="display: inline-block">
+                                                                                                <img src="{{captures[0]}}" width="117%" height="auto"/>
+                                                                                        </li>
+                                                                                        <div style="height: 12px;"></div>
+                                                                                        <li class="text-center" style="display: inline-block">
+                                                                                                <!-- <img src="../../../../assets/images/id_placeholder.png" style="padding-left: 7px;"/> -->
+                                                                                        </li>
+                                                                                </ul>
+                                                                        </div>
+                                                                </div>
+                                                                <div *ngIf="captures.length == 2">
+                                                                        <div id="preview-panel" class="text-center" style="margin-top: 28px;">
+                                                                        
+                                                                                <ul class="text-center" style="list-style-type: none;margin-left: -35px;margin-top: -6px;">
+                                                                                        <li class="text-center" style="display: inline-block" *ngFor="let c of captures | slice:0:2">
+                                                                                                <img src="{{c}}" width="117%" height="auto"/>
+                                                                                                <div style="height: 12px;"></div>
+                                                                                        </li>
+                                                                                </ul>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                        </div>
+                                        <div *ngIf="isMobile"><button id="startButton" class="btn btn-success" (click)="capture('id')" style="font-size: 16px;background-color: #1F4694;border:none;">TAKE PHOTO</button></div>
+
+                                </div>
+                        </div>
+                    </div>
+                    <div *ngIf="documentType == 'passport'">
+                        <div style="height: 15px"></div>
+                        <div class="row">
+                                <div class="col-sm-12 text-center" style="padding-left: 0px;">
+                                        <img src="../../../../assets/images/instructions.png" width="90%" height="auto"/>
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-sm-7 text-center" style="margin-top: 200px;padding-left: 0px;">
+                                        <div class="overlay-id">
+                                                <img id="overlay-image" src="../../../../assets/images/id.png" width="90%" style="opacity: 0.6;z-index: 2;position: absolute;margin-top: -50px;"/>
+                                                <video #passportVideo id="video" width="100%" style="position: absolute;z-index: 1;margin-top: -50px;" autoplay></video>  
+                                                <div style="height: 50px;"></div>
+                                        </div>
+                                </div>
+                                <div class="col-sm-5 text-center">
+                                        <canvas style="width: 100%;" #passportCanvas id="canvas" width="980" height="540" style="display:none;"></canvas>
+                                        <div *ngIf="!passportCaptured" style="margin-top: -98px">
+                                                <!-- <img src="../../../../assets/images/passport_placeholder.png" /> -->
+                                        </div>
+                                        <div *ngIf="passportCaptured">
+                                                <div style="height: 100px"></div>
+                                                 <img src="{{passportCapture}}" width="100%" height="auto" />
+                                        </div>
+                                </div>
+                        </div>
+                        <div *ngIf="isMobile"><button id="startButton" class="btn btn-success" (click)="capture('passport')" style="font-size: 16px;background-color: #1F4694;border:none;">TAKE PHOTO</button></div>
+                        <div style="height: 20px;"></div>
+                    </div>
+                    <div style="height: 50px;"></div>
+                        
+                    <div class="form-group text-center">
+                        <button type="button" class="btn btn-outline-rounded btn-default" (click)="goToPrevious(null)"> <span style="margin-right:10px;" class="glyphicon glyphicon-arrow-left"></span> Previous</button>
+                        <button type="button" class="btn btn-success btn-outline-rounded btn-info" [disabled]="!documentOk" (click)="goToNext(null)"> Next <span style="margin-left:10px;" class="glyphicon glyphicon-arrow-right"></span></button>
+                        <img [hidden]="!loading" src="{{loadingImg}}" width="35" />
+                        <!-- <i [hidden]="loading" style="color: green; font-size: 40px;" class="fa fa-check-circle" aria-hidden="true"></i> -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+    

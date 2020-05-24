@@ -1,0 +1,11 @@
+FROM maven:3.5-jdk-8 as builder
+COPY ./ /build/
+WORKDIR /build
+RUN mvn clean package
+
+FROM java:8
+RUN mkdir -p /usr/src/app
+EXPOSE 8080
+WORKDIR /usr/src/app
+COPY --from=builder /build/target/ICO-KYC-0.1.0.jar /usr/src/app/
+CMD java -Dspring.config.location=./application.properties -Xmx4096m -Xms1024m -jar /usr/src/app/ICO-KYC-0.1.0.jar

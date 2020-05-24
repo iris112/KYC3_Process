@@ -1,0 +1,647 @@
+<div class="col-md-2">
+    <!-- <div class="sticky-box">
+      <ul>
+          <li>&nbsp;&nbsp;<b>25 FREE KYC Credits</b><br><br></li>
+          <li>&nbsp;&nbsp;<b>14 Day Risk FREE Guarantee</b><br><br></li>
+          <li>&nbsp;&nbsp;<b>Instant & full access</b><br><br></li>
+          <li>&nbsp;&nbsp;<b>Onboard new clients in minutes</b><br><br></li>
+          <li>&nbsp;&nbsp;<b>Auditable verification</b> of your AML/CFT compliance<br><br></li>
+          <li>&nbsp;&nbsp;<b>GDPR compliant</b> no searches store<br><br></li>
+          <li>&nbsp;&nbsp;<b>All major sanctions and watchlists included</b><br><br></li>
+          <li>&nbsp;&nbsp;<b>Unlimited email support</b><br><br></li>
+          <li>&nbsp;&nbsp;<b>Pay-as-you-go monthly agreement</b>cancel anytime<br><br></li>
+          <li>&nbsp;&nbsp;<b>Your information is protected by Stripe, the standard in online payments.</b><br><br></li>
+      </ul>
+    </div> -->
+</div>
+<div class="col-md-12 register-box">
+  <div class="row">
+    <div class="col-md-12">
+        <div class="register-form col-md-12">
+            <div style="height: 70px;"></div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="col-md-2"></div>
+                    <button class="col-md-8 box text-center" (click)="payWithToken()">
+                      <i class="fab fa-ethereum" style="font-size: 70px;margin-left: 5px;color:#929292;"></i>
+                      <div style="height: 15px;"></div>
+                      <p style="text-align: center;font-size: 22px;">TOKEN</p>
+                    </button>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-2"></div>
+                    <button class="col-md-8 box text-center" (click)="payWithEth()">
+                      <i class="fab fa-ethereum" style="font-size: 70px;margin-left: 5px;color:#929292;"></i>
+                      <div style="height: 15px;"></div>
+                      <p style="text-align: center;font-size: 22px;">ETH</p>
+                    </button>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-2"></div>
+                    <button class="col-md-8 box text-center" (click)="payWithBtc()">
+                      <i class="fab fa-bitcoin" style="font-size: 70px;margin-left: 5px;color:#929292;"></i>
+                      <div style="height: 15px;"></div>
+                      <p style="text-align: center;font-size: 22px;">BTC</p>
+                    </button>             
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-2"></div>
+                    <button class="col-md-8 box text-center" (click)="payWithCc()">
+                      <i class="far fa-credit-card" style="font-size: 70px;margin-left: 5px;color:#929292;"></i>
+                      <div style="height: 15px;"></div>
+                      <p style="text-align: center;font-size: 22px;">EUR/USD</p>
+                    </button>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+            <div style="height: 20px;"></div>
+            <div class="row">
+              EUR price: {{eurResponse?.data?.amount}} EUR per ETH <br>
+              USD price: {{usdResponse?.data?.amount}} USD per ETH 
+            </div>
+            <div class="row">
+              <div style="height: 50px;"></div>
+              <div *ngIf="token">
+                <h2>Purchase with Token</h2>
+                <div style="height: 15px;"></div><br>
+                <label for="tokensNo">Number of tokens:</label>
+                <input class="form-control col-md-5" id="tokensNo" style="border: 1px black solid;" name="tokensNo" type="number" [(ngModel)]="tokensNo" />
+                <label for="emailAddress" style="display: block;">Email address:</label>
+                <input class="col-md-5" id="emailAddress" style="border: 1px black solid;" name="emailAddress" type="email" [(ngModel)]="email" />
+                <div style="height: 60px;"></div><br>
+                Please send <span style="color:darkblue">{{tokensNo}} Token</span> to <span style="color:darkblue">{{ethAddress}}</span>.
+                <div class="form-row">
+                    <button (click)="paymentWithToken()">Pay {{tokensNo}} Token </button>
+                </div>
+              </div>
+              <div *ngIf="eth">
+                <h2>Purchase with ETH</h2>
+                <div style="height: 15px;"></div><br>
+                <label for="tokensNo">Number of tokens:</label>
+                <input class="form-control col-md-5" id="tokensNo" style="border: 1px black solid;" name="tokensNo" type="number" [(ngModel)]="tokensNo" />
+                <div style="height: 60px;"></div><br>
+                Please send <span style="color:darkblue">{{tokensNo}} ETH</span> to <span style="color:darkblue">{{ethAddress}}</span>.
+              </div>
+              <div *ngIf="btc">
+                <h2>Purchase with BTC</h2>
+                <div style="height: 15px;"></div><br>
+                <label for="tokensNo">Number of tokens:</label>
+                <input class="form-control col-md-5" id="tokensNo" style="border: 1px black solid;" name="tokensNo" type="number" [(ngModel)]="tokensNo" />
+                <div style="height: 60px;"></div><br>
+                Please send <span style="color:darkblue">{{tokensNo}} BTC</span> to <span style="color:darkblue">{{btcAddress}}</span>.
+              </div>
+              <div id="creditPayment">
+                <h2>Purchase with EUR/USD</h2>
+                <div style="height: 15px;"></div><br>
+                <label for="tokensNo">Number of tokens:</label>
+                <input class="form-control col-md-5" id="tokensNo" style="border: 1px black solid;" name="tokensNo" type="number" [(ngModel)]="tokensNo" />
+                <div style="height: 65px;"></div>
+                <label for="currency">Currency:</label>
+                <ng-select [searchable]="false" id="currency" class="ng-control" name="currency" [(ngModel)]="currency" #currencyy="ngModel" (change)="currencySelected()" placeholder="Select currency" style="border: 1px solid black;border-radius: 0px;">
+                    <ng-option value="eur">EUR</ng-option>
+                    <ng-option value="usd">USD</ng-option>
+                </ng-select>
+                <div style="height: 25px;"></div>
+                <label for="email">Email:</label>
+                <input class="form-control col-md-5" id="email" style="border: 1px black solid;" name="email" type="text" [(ngModel)]="email" />
+                <div style="height: 65px;"></div>
+                <label for="walletAddress">Wallet address:</label>
+                <input class="form-control col-md-5" id="walletAddress" style="border: 1px black solid;" name="walletAddress" type="text" [(ngModel)]="walletAddress" />
+                <div style="height: 65px;"></div>
+                <div class="form-row" style="font-size: 26px;color:gray">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-amex"></i>
+                    <i class="fab fa-cc-discover"></i>
+                    <i class="fab fa-cc-jcb"></i>
+                    <i class="fab fa-cc-diners-club"></i>
+                </div>    
+                <div style="height:15px"></div>
+                <div class="form-row">
+                    <div id="card-info" #cardInfo style="border: 1px black solid;"></div>
+                    <div id="card-errors" role="alert" *ngIf="error">{{ error }}</div>
+                    <div style="height: 20px;"></div>
+                    <button (click)="payment()">Pay {{tokensNo}} $ </button>
+                    <img *ngIf="loading" src="{{loadingImg}}" width="40px" height="auto">
+                </div>
+              </div>
+              <div style="height: 70px;"></div>
+              <!-- <button (click)="createWithoutStripe()">Create User Test</button> -->
+            </div>
+            <!-- <form name="form" style="width: 100%" (ngSubmit)="f.form.valid" #f="ngForm" autocomplete="off" novalidate> -->
+          
+                <!-- Personal Info -->
+                <!-- <legend ng-class="{selected: tab == '1'}" (click)="tabs['1'] = !tabs['1']">
+                  Personal Details
+                </legend>
+                <div [hidden]="!tabs['1']">
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !firstname.valid }"> -->
+                        <!-- <label for="firstname">First Name:</label><span class="required-info">*</span> -->
+                        <!-- <input id="firstname" type="text" class="form-control" name="firstname" [(ngModel)]="model.firstname" #firstname="ngModel" placeholder="First name *" required />
+                        <div *ngIf="f.submitted && !firstname.valid" class="help-block">Please enter a first name.</div>
+                    </div>
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !lastname.valid }"> -->
+                        <!-- <label for="lastname">Last Name:</label><span class="required-info">*</span> -->
+                        <!-- <input id="lastname" type="text" class="form-control" name="lastname" [(ngModel)]="model.lastname" #lastname="ngModel" placeholder="Last name *" required />
+                        <div *ngIf="f.submitted && !lastname.valid" class="help-block">Please enter a last name.</div>
+                    </div>
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }"> -->
+                        <!-- <label for="username">Work Email (Username):</label><span class="required-info">*</span> -->
+                        <!-- <input id="username" type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" placeholder="Work email (Username) *" required pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$" />
+                        <div *ngIf="f.submitted && !username.valid" class="help-block">Please enter a valid email address.</div>
+                    </div>
+                </div> -->
+          
+                <!-- Work Credentials -->
+                <!-- <legend ng-class="{selected: tab == '2'}" (click)="tabs['2'] = !tabs['2']">
+                  Other Details
+                </legend>
+                <div [hidden]="!tabs['2']">
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !companyName.valid }"> -->
+                        <!-- <label for="companyName">Company Name:</label><span class="required-info">*</span> -->
+                        <!-- <input id="companyName" type="text" class="form-control" name="companyName" [(ngModel)]="model.companyName" #companyName="ngModel" placeholder="Company name *" required />
+                        <div *ngIf="f.submitted && !companyName.valid" class="help-block">Please enter a company name.</div>
+                    </div> -->
+                    <!-- <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !country.valid }"> -->
+                        <!-- <label for="country">Country of origin:</label><span class="required-info">*</span> -->
+                      <!-- <ng-select [searchable]="true" id="country" class="custom" name="country" [(ngModel)]="model.country" #country="ngModel" placeholder="Country of origin *" (change)=isCountryFilled() required>
+                        <ng-option value="AF">Afghanistan</ng-option>
+                        <ng-option value="AL">Albania</ng-option>
+                        <ng-option value="DZ">Algeria</ng-option>
+                        <ng-option value="AS">American Samoa</ng-option>
+                        <ng-option value="AD">Andorra</ng-option>
+                        <ng-option value="AO">Angola</ng-option>
+                        <ng-option value="AI">Anguilla</ng-option>
+                        <ng-option value="AQ">Antarctica</ng-option>
+                        <ng-option value="AG">Antigua and Barbuda</ng-option>
+                        <ng-option value="AR">Argentina</ng-option>
+                        <ng-option value="AM">Armenia</ng-option>
+                        <ng-option value="AW">Aruba</ng-option>
+                        <ng-option value="AU">Australia</ng-option>
+                        <ng-option value="AT">Austria</ng-option>
+                        <ng-option value="AZ">Azerbaijan</ng-option>
+                        <ng-option value="BS">Bahamas</ng-option>
+                        <ng-option value="BH">Bahrain</ng-option>
+                        <ng-option value="BD">Bangladesh</ng-option>
+                        <ng-option value="BB">Barbados</ng-option>
+                        <ng-option value="BY">Belarus</ng-option>
+                        <ng-option value="BE">Belgium</ng-option>
+                        <ng-option value="BZ">Belize</ng-option>
+                        <ng-option value="BJ">Benin</ng-option>
+                        <ng-option value="BM">Bermuda</ng-option>
+                        <ng-option value="BT">Bhutan</ng-option>
+                        <ng-option value="BO">Bolivia</ng-option>
+                        <ng-option value="BQ">Bonaire, Sint Eustatius and Saba</ng-option>
+                        <ng-option value="BA">Bosnia and Herzegovina</ng-option>
+                        <ng-option value="BW">Botswana</ng-option>
+                        <ng-option value="BV">Bouvet Island</ng-option>
+                        <ng-option value="BR">Brazil</ng-option>
+                        <ng-option value="IO">British Indian Ocean Territory</ng-option>
+                        <ng-option value="BN">Brunei Darussalam</ng-option>
+                        <ng-option value="BG">Bulgaria</ng-option>
+                        <ng-option value="BF">Burkina Faso</ng-option>
+                        <ng-option value="BI">Burundi</ng-option>
+                        <ng-option value="KH">Cambodia</ng-option>
+                        <ng-option value="CM">Cameroon</ng-option>
+                        <ng-option value="CA">Canada</ng-option>
+                        <ng-option value="CV">Cape Verde</ng-option>
+                        <ng-option value="KY">Cayman Islands</ng-option>
+                        <ng-option value="CF">Central African Republic</ng-option>
+                        <ng-option value="TD">Chad</ng-option>
+                        <ng-option value="CL">Chile</ng-option>
+                        <ng-option value="CN">China</ng-option>
+                        <ng-option value="CX">Christmas Island</ng-option>
+                        <ng-option value="CC">Cocos (Keeling) Islands</ng-option>
+                        <ng-option value="CO">Colombia</ng-option>
+                        <ng-option value="KM">Comoros</ng-option>
+                        <ng-option value="CG">Congo</ng-option>
+                        <ng-option value="CD">Congo, the Democratic Republic of the</ng-option>
+                        <ng-option value="CK">Cook Islands</ng-option>
+                        <ng-option value="CR">Costa Rica</ng-option>
+                        <ng-option value="CI">Côte d'Ivoire</ng-option>
+                        <ng-option value="HR">Croatia</ng-option>
+                        <ng-option value="CU">Cuba</ng-option>
+                        <ng-option value="CW">Curaçao</ng-option>
+                        <ng-option value="CY">Cyprus</ng-option>
+                        <ng-option value="CZ">Czech Republic</ng-option>
+                        <ng-option value="DK">Denmark</ng-option>
+                        <ng-option value="DJ">Djibouti</ng-option>
+                        <ng-option value="DM">Dominica</ng-option>
+                        <ng-option value="DO">Dominican Republic</ng-option>
+                        <ng-option value="EC">Ecuador</ng-option>
+                        <ng-option value="EG">Egypt</ng-option>
+                        <ng-option value="SV">El Salvador</ng-option>
+                        <ng-option value="GQ">Equatorial Guinea</ng-option>
+                        <ng-option value="ER">Eritrea</ng-option>
+                        <ng-option value="EE">Estonia</ng-option>
+                        <ng-option value="ET">Ethiopia</ng-option>
+                        <ng-option value="FK">Falkland Islands (Malvinas)</ng-option>
+                        <ng-option value="FO">Faroe Islands</ng-option>
+                        <ng-option value="FJ">Fiji</ng-option>
+                        <ng-option value="FI">Finland</ng-option>
+                        <ng-option value="FR">France</ng-option>
+                        <ng-option value="GF">French Guiana</ng-option>
+                        <ng-option value="PF">French Polynesia</ng-option>
+                        <ng-option value="TF">French Southern Territories</ng-option>
+                        <ng-option value="GA">Gabon</ng-option>
+                        <ng-option value="GM">Gambia</ng-option>
+                        <ng-option value="GE">Georgia</ng-option>
+                        <ng-option value="DE">Germany</ng-option>
+                        <ng-option value="GH">Ghana</ng-option>
+                        <ng-option value="GI">Gibraltar</ng-option>
+                        <ng-option value="EL">Greece</ng-option>
+                        <ng-option value="GL">Greenland</ng-option>
+                        <ng-option value="GD">Grenada</ng-option>
+                        <ng-option value="GP">Guadeloupe</ng-option>
+                        <ng-option value="GU">Guam</ng-option>
+                        <ng-option value="GT">Guatemala</ng-option>
+                        <ng-option value="GG">Guernsey</ng-option>
+                        <ng-option value="GN">Guinea</ng-option>
+                        <ng-option value="GW">Guinea-Bissau</ng-option>
+                        <ng-option value="GY">Guyana</ng-option>
+                        <ng-option value="HT">Haiti</ng-option>
+                        <ng-option value="HM">Heard Island and McDonald Islands</ng-option>
+                        <ng-option value="VA">Holy See (Vatican City State)</ng-option>
+                        <ng-option value="HN">Honduras</ng-option>
+                        <ng-option value="HK">Hong Kong</ng-option>
+                        <ng-option value="HU">Hungary</ng-option>
+                        <ng-option value="IS">Iceland</ng-option>
+                        <ng-option value="IN">India</ng-option>
+                        <ng-option value="ID">Indonesia</ng-option>
+                        <ng-option value="IR">Iran, Islamic Republic of</ng-option>
+                        <ng-option value="IQ">Iraq</ng-option>
+                        <ng-option value="IE">Ireland</ng-option>
+                        <ng-option value="IM">Isle of Man</ng-option>
+                        <ng-option value="IL">Israel</ng-option>
+                        <ng-option value="IT">Italy</ng-option>
+                        <ng-option value="JM">Jamaica</ng-option>
+                        <ng-option value="JP">Japan</ng-option>
+                        <ng-option value="JE">Jersey</ng-option>
+                        <ng-option value="JO">Jordan</ng-option>
+                        <ng-option value="KZ">Kazakhstan</ng-option>
+                        <ng-option value="KE">Kenya</ng-option>
+                        <ng-option value="KI">Kiribati</ng-option>
+                        <ng-option value="KP">Korea, Democratic People's Republic of</ng-option>
+                        <ng-option value="KR">Korea, Republic of</ng-option>
+                        <ng-option value="KW">Kuwait</ng-option>
+                        <ng-option value="KG">Kyrgyzstan</ng-option>
+                        <ng-option value="LA">Lao People's Democratic Republic</ng-option>
+                        <ng-option value="LV">Latvia</ng-option>
+                        <ng-option value="LB">Lebanon</ng-option>
+                        <ng-option value="LS">Lesotho</ng-option>
+                        <ng-option value="LR">Liberia</ng-option>
+                        <ng-option value="LY">Libya</ng-option>
+                        <ng-option value="LI">Liechtenstein</ng-option>
+                        <ng-option value="LT">Lithuania</ng-option>
+                        <ng-option value="LU">Luxembourg</ng-option>
+                        <ng-option value="MO">Macao</ng-option>
+                        <ng-option value="MK">Macedonia, the former Yugoslav Republic of</ng-option>
+                        <ng-option value="MG">Madagascar</ng-option>
+                        <ng-option value="MW">Malawi</ng-option>
+                        <ng-option value="MY">Malaysia</ng-option>
+                        <ng-option value="MV">Maldives</ng-option>
+                        <ng-option value="ML">Mali</ng-option>
+                        <ng-option value="MT">Malta</ng-option>
+                        <ng-option value="MH">Marshall Islands</ng-option>
+                        <ng-option value="MQ">Martinique</ng-option>
+                        <ng-option value="MR">Mauritania</ng-option>
+                        <ng-option value="MU">Mauritius</ng-option>
+                        <ng-option value="YT">Mayotte</ng-option>
+                        <ng-option value="MX">Mexico</ng-option>
+                        <ng-option value="FM">Micronesia, Federated States of</ng-option>
+                        <ng-option value="MD">Moldova, Republic of</ng-option>
+                        <ng-option value="MC">Monaco</ng-option>
+                        <ng-option value="MN">Mongolia</ng-option>
+                        <ng-option value="ME">Montenegro</ng-option>
+                        <ng-option value="MS">Montserrat</ng-option>
+                        <ng-option value="MA">Morocco</ng-option>
+                        <ng-option value="MZ">Mozambique</ng-option>
+                        <ng-option value="MM">Myanmar</ng-option>
+                        <ng-option value="NA">Namibia</ng-option>
+                        <ng-option value="NR">Nauru</ng-option>
+                        <ng-option value="NP">Nepal</ng-option>
+                        <ng-option value="NL">Netherlands</ng-option>
+                        <ng-option value="NC">New Caledonia</ng-option>
+                        <ng-option value="NZ">New Zealand</ng-option>
+                        <ng-option value="NI">Nicaragua</ng-option>
+                        <ng-option value="NE">Niger</ng-option>
+                        <ng-option value="NG">Nigeria</ng-option>
+                        <ng-option value="NU">Niue</ng-option>
+                        <ng-option value="NF">Norfolk Island</ng-option>
+                        <ng-option value="MP">Northern Mariana Islands</ng-option>
+                        <ng-option value="NO">Norway</ng-option>
+                        <ng-option value="OM">Oman</ng-option>
+                        <ng-option value="PK">Pakistan</ng-option>
+                        <ng-option value="PW">Palau</ng-option>
+                        <ng-option value="PS">Palestinian Territory, Occupied</ng-option>
+                        <ng-option value="PA">Panama</ng-option>
+                        <ng-option value="PG">Papua New Guinea</ng-option>
+                        <ng-option value="PY">Paraguay</ng-option>
+                        <ng-option value="PE">Peru</ng-option>
+                        <ng-option value="PH">Philippines</ng-option>
+                        <ng-option value="PN">Pitcairn</ng-option>
+                        <ng-option value="PL">Poland</ng-option>
+                        <ng-option value="PT">Portugal</ng-option>
+                        <ng-option value="PR">Puerto Rico</ng-option>
+                        <ng-option value="QA">Qatar</ng-option>
+                        <ng-option value="RE">Réunion</ng-option>
+                        <ng-option value="RO">Romania</ng-option>
+                        <ng-option value="RU">Russian Federation</ng-option>
+                        <ng-option value="RW">Rwanda</ng-option>
+                        <ng-option value="BL">Saint Barthélemy</ng-option>
+                        <ng-option value="SH">Saint Helena, Ascension and Tristan da Cunha</ng-option>
+                        <ng-option value="KN">Saint Kitts and Nevis</ng-option>
+                        <ng-option value="LC">Saint Lucia</ng-option>
+                        <ng-option value="MF">Saint Martin (French part)</ng-option>
+                        <ng-option value="PM">Saint Pierre and Miquelon</ng-option>
+                        <ng-option value="VC">Saint Vincent and the Grenadines</ng-option>
+                        <ng-option value="WS">Samoa</ng-option>
+                        <ng-option value="SM">San Marino</ng-option>
+                        <ng-option value="ST">Sao Tome and Principe</ng-option>
+                        <ng-option value="SA">Saudi Arabia</ng-option>
+                        <ng-option value="SN">Senegal</ng-option>
+                        <ng-option value="RS">Serbia</ng-option>
+                        <ng-option value="SC">Seychelles</ng-option>
+                        <ng-option value="SL">Sierra Leone</ng-option>
+                        <ng-option value="SG">Singapore</ng-option>
+                        <ng-option value="SX">Sint Maarten (Dutch part)</ng-option>
+                        <ng-option value="SK">Slovakia</ng-option>
+                        <ng-option value="SI">Slovenia</ng-option>
+                        <ng-option value="SB">Solomon Islands</ng-option>
+                        <ng-option value="SO">Somalia</ng-option>
+                        <ng-option value="ZA">South Africa</ng-option>
+                        <ng-option value="GS">South Georgia and the South Sandwich Islands</ng-option>
+                        <ng-option value="SS">South Sudan</ng-option>
+                        <ng-option value="ES">Spain</ng-option>
+                        <ng-option value="LK">Sri Lanka</ng-option>
+                        <ng-option value="SD">Sudan</ng-option>
+                        <ng-option value="SR">Suriname</ng-option>
+                        <ng-option value="SJ">Svalbard and Jan Mayen</ng-option>
+                        <ng-option value="SZ">Swaziland</ng-option>
+                        <ng-option value="SE">Sweden</ng-option>
+                        <ng-option value="CH">Switzerland</ng-option>
+                        <ng-option value="SY">Syrian Arab Republic</ng-option>
+                        <ng-option value="TW">Taiwan, Province of China</ng-option>
+                        <ng-option value="TJ">Tajikistan</ng-option>
+                        <ng-option value="TZ">Tanzania, United Republic of</ng-option>
+                        <ng-option value="TH">Thailand</ng-option>
+                        <ng-option value="TL">Timor-Leste</ng-option>
+                        <ng-option value="TG">Togo</ng-option>
+                        <ng-option value="TK">Tokelau</ng-option>
+                        <ng-option value="TO">Tonga</ng-option>
+                        <ng-option value="TT">Trinidad and Tobago</ng-option>
+                        <ng-option value="TN">Tunisia</ng-option>
+                        <ng-option value="TR">Turkey</ng-option>
+                        <ng-option value="TM">Turkmenistan</ng-option>
+                        <ng-option value="TC">Turks and Caicos Islands</ng-option>
+                        <ng-option value="TV">Tuvalu</ng-option>
+                        <ng-option value="UG">Uganda</ng-option>
+                        <ng-option value="UA">Ukraine</ng-option>
+                        <ng-option value="AE">United Arab Emirates</ng-option>
+                        <ng-option value="UK">United Kingdom</ng-option>
+                        <ng-option value="US">United States</ng-option>
+                        <ng-option value="UM">United States Minor Outlying Islands</ng-option>
+                        <ng-option value="UY">Uruguay</ng-option>
+                        <ng-option value="UZ">Uzbekistan</ng-option>
+                        <ng-option value="VU">Vanuatu</ng-option>
+                        <ng-option value="VE">Venezuela, Bolivarian Republic of</ng-option>
+                        <ng-option value="VN">Viet Nam</ng-option>
+                        <ng-option value="VG">Virgin Islands, British</ng-option>
+                        <ng-option value="VI">Virgin Islands, U.S.</ng-option>
+                        <ng-option value="WF">Wallis and Futuna</ng-option>
+                        <ng-option value="EH">Western Sahara</ng-option>
+                        <ng-option value="YE">Yemen</ng-option>
+                        <ng-option value="ZM">Zambia</ng-option>
+                        <ng-option value="ZW">Zimbabwe</ng-option>
+                      </ng-select>
+                      <div *ngIf="f.submitted && !country.valid" class="help-block">Please enter a country of origin.</div>
+                    </div>
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !vatNumber.valid }"> -->
+                      <!-- <label for="vatNumber">VAT number:</label> -->
+                      <!-- <input id="vatNumber" type="text" class="form-control" name="vatNumber" [(ngModel)]="model.vatNumber" placeholder="VAT number" #vatNumber="ngModel" />
+                    </div>
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }"> -->
+                        <!-- <label>Password:</label><span class="required-info">*</span><br> -->
+                        <!-- <input id="password" type="password" class="form-control" name="password" 
+                        [(ngModel)]="model.password" #password="ngModel" (focus)="passwordCheck()" required 
+                        placeholder="Password *" pattern="^(?=^.{6,64}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$"/>
+                        <div style="height: 10px;"></div>
+                        <div id="message">
+                          <p id="letter" class="invalid">Contains a <b>lowercase</b> letter</p>
+                          <p id="capital" class="invalid">Contains a <b>capital (uppercase)</b> letter</p>
+                          <p id="number" class="invalid">Contains a <b>number</b></p>
+                          <p id="length" class="invalid">Is <b>6 - 64</b> characters long</p>
+                          <p id="special" class="invalid">Contains a <b>special </b>character !@#$%^&amp;*(),.?-&quot;:{{ '{' }}}|&lt;&gt; </p>
+                        </div>
+                        <div style="height: 5px;"></div> -->
+                        <!-- <input type="password" id="password" name="password" 
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                        title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
+                        [(ngModel)]="model.password" #password="ngModel" (blur)="isTabFilled('2')" required> -->
+          
+                        <!-- <div *ngIf="f.submitted && !password.valid" class="help-block">
+                          Please enter a valid password.
+                        </div>
+                    </div> -->
+          
+          
+          
+          
+                    <!-- <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password_confirm.valid }"> -->
+                        <!-- <label for="password_confirm">Confirm Password:</label><span class="required-info">*</span> -->
+                        <!-- <input id="password_confirm" type="password" class="form-control" name="password_confirm" [(ngModel)]="passwordConfirm" placeholder="Confirm password *" #password_confirm="ngModel" required />
+                        <div *ngIf="f.submitted && !password_confirm.valid" class="help-block">Please enter a password confirmation.</div>
+                        <div style= "color:#a94442" *ngIf="f.submitted && !passwordOk()" class="help-block">The passwords you entered do not match.</div>
+                    </div> -->
+                <!-- </div> -->
+          
+          
+              <!-- <div style="clear:both" height:20px></div> -->
+          
+                <!--<button type="button" class="btn btn-primary col-lg-12 col-md-12 col-sm-12" style="padding-bottom: inherit;font-weight: bold; margin-bottom: 10px" (click)="registerforFree()">-->
+                  <!--<h3>Start a free trial</h3>-->
+                <!--</button>-->
+                 <!--<div class="form-group">
+                  <button [disabled]="loadingfree" class="btn btn-primary col-lg-12 col-md-12 col-sm-12" (click)="registerforFree()">
+                    <img *ngIf="loadingfree" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                    Start a free trial
+                  </button>
+                </div>
+                <h4 class="text-center" style="line-height: 30px;">OR</h4>-->
+                <!-- Payment Credentials -->
+                <!-- <legend ng-class="{selected: tab == '3'}" (click)="tabs['3'] = !tabs['3']">
+                  Plan & Payment Details
+                </legend>
+                <div [hidden]="!tabs['3']"> -->
+          
+                  <!--
+          
+                  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !signupToken.valid }">
+                    <label for="signupToken">Select signupToken</label>
+                    <select class="form-control" name="signupToken" [(ngModel)]="model.signupToken" #signupToken="ngModel" required>
+                      <option value="dragonfly-trial">dragonfly-trial</option>
+                      <option value="dragonfly">dragonfly</option>
+                      <option value="trix">trix</option>
+                    </select>
+                    <div *ngIf="f.submitted && !signupToken.valid" class="help-block">Please select a signupToken</div>
+                  </div>
+          
+                  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !stripeCardToken.valid }">
+                    <label for="stripeCardToken">Select stripeCardToken</label>
+                    <input type="text" class="form-control" name="stripeCardToken" [(ngModel)]="model.stripeCardToken" #stripeCardToken="ngModel" required />
+                    <div *ngIf="f.submitted && !stripeCardToken.valid" class="help-block">Please select a stripeCardToken</div>
+                  </div>
+                  -->
+          
+                  <!-- <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !subscription.valid }">
+                      <label for="subscription">Select Subscription Plan:</label><span class="required-info">*</span>
+                      <div class="alert-danger" style="padding:10px;text-align:center">All plans include a 14-day trial period. <br>All listed prices exclude VAT.</div><br>
+                      <select class="plan-selector" name="subscription" [(ngModel)]="model.subscription" #subscription="ngModel" (change)="checkSub()" placeholder="Subscription plan *" required>
+                        <option value="" disabled selected> Select a subscription plan </option>
+                        <option *ngFor="let plan of plans" [ngValue]="plan.id">{{ plan.name }} - {{ plan.amount/100 }} {{ plan.currency | uppercase }} / month</option>
+                      </select>
+                      <div *ngIf="f.submitted && !subscription.valid" class="help-block">Please select a subscription plan.</div>
+                      <div style="height:20px"></div>
+                      <div class="form-row">
+                          <i class="pf pf-visa"></i>
+                          <i class="pf pf-mastercard-alt"></i>
+                          <i class="pf pf-american-express"></i>
+                          <i class="pf pf-discover"></i>
+                          <i class="pf pf-jcb"></i>
+                          <i class="pf pf-diners"></i>
+                      </div>
+                      <div style="height:25px"></div>
+                  </div> -->
+          
+          
+          
+                  <!-- <div class="form-row">
+                    <div id="card-info" #cardInfo></div>
+                    <div id="card-errors" role="alert" *ngIf="error">{{ error }}</div>
+                  </div>
+                  <div style="height:20px;"></div>
+                  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isCodeValid }"> -->
+                    <!-- <label for="password_confirm">Confirm Password:</label><span class="required-info">*</span> -->
+                    <!-- <input id="promoCode" type="text" class="form-control" name="promoCode" [(ngModel)]="model.promoCode" placeholder="Discount code" #promoCodee="ngModel" />
+                    <div *ngIf="!isCodeValid" class="help-block">The code you entered is not valid.</div>
+                  </div>
+                  <div style="height: 20px;"></div>
+                  <div class="form-group" *ngIf=isTrial>
+                    <div class="alert-danger" style="padding:15px;text-align:center">If you do not cancel your subscription before the end of the 14-day trial period, you will be billed according to the pricing of the plan you chose.</div>
+                    <div style="height:30px;"></div>
+                    <button [disabled]="loading" class="submit-button" (click)="register()">REGISTER</button>
+                    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                  </div>
+                  <div class="form-group" *ngIf=!isTrial>
+                      <button [disabled]="loading" class="submit-button" (click)="register()">REGISTER</button>
+                      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                    </div>
+                </div>
+                <button [routerLink]="['/login']" class="cancel-button">CANCEL</button>
+                <div>
+                  <div style="height: 10px"></div>
+                  <p style="font-size:13px;">By submitting this form, you confirm you agree to the <a class="sublink" href="https://www.kyc3.com/terms-conditions/">Terms of Service</a></p>
+                </div>
+                <div style="height:30px"></div>
+                <div class="col-md-12 help-banner" style="padding:15px;">
+                  <h3 class="text-center">Need help signing up for KYC3?</h3>
+                  <h4 class="text-center">Please contact our friendly sales team at <a href="mailto:sales@kyc3.com">sales@kyc3.com</a>.</h4>
+                </div> -->
+          
+            <!-- </form>
+            </div> -->
+    </div>
+  </div>
+  
+</div>
+</div>
+
+<div class="col-md-2">
+  <!-- <div class="sticky-box" *ngIf="euroPrices">
+      <b>Pick the plan you need today, change plans anytime.</b><br><br>
+      <ol>
+        <li style="color: #F8CC20;">&nbsp;&nbsp;<b>STARTER</b></li><br>
+        <ul>
+            <li>&nbsp;&nbsp;<b>14 Day Risk FREE</b><br></li>
+            <li>&nbsp;&nbsp;<b>KYC Report Builder</b><br></li>
+            <li>&nbsp;&nbsp;<b>Enhanced Search</b><br></li>
+            <li>&nbsp;&nbsp;<b>Batch Screening</b><br></li>
+            <li>&nbsp;&nbsp;<b>Quick Report</b><br></li>
+            <li>&nbsp;&nbsp;<b>25 credits</b> just <span style="color: #F8CC20;font-size: 16px;">50 &euro; </span>/ mo<br><br></li>
+        </ul>
+        <li style="color: #F8CC20;">&nbsp;&nbsp;<b>BASIC</b></li><br>
+        <ul>
+            <li>&nbsp;&nbsp;<b>All features above +</b><br></li>
+            <li>&nbsp;&nbsp;<b>100 credits</b> just <span style="color: #F8CC20;font-size: 16px;">100 &euro; </span>/ mo<br><br></li>
+        </ul>
+        <li style="color: #F8CC20;">&nbsp;&nbsp;<b>PRO / DEVELOPER</b></li><br>
+        <ul>
+            <li>&nbsp;&nbsp;<b>All features above +</b><br></li>
+            <li>&nbsp;&nbsp;<b>REST API</b><br></li>
+            <li>&nbsp;&nbsp;<b>500 credits</b> just <span style="color: #F8CC20;font-size: 16px;">250 &euro; </span>/ mo<br><br></li>
+        </ul>
+        <li style="color: #F8CC20;">&nbsp;&nbsp;<b>BUSINESS</b></li><br>
+        <ul>
+            <li>&nbsp;&nbsp;<b>All features above +</b><br></li>
+            <li>&nbsp;&nbsp;<b>Multiple Accounts</b><br></li>
+            <li>&nbsp;&nbsp;<b>1500 credits</b> just <span style="color: #F8CC20;font-size: 16px;">500 &euro; </span>/ mo<br><br></li>
+        </ul>
+        <li style="color: #F8CC20;">&nbsp;&nbsp;<b>ENTERPRISE</b></li><br>
+        <ul>
+            <li>&nbsp;&nbsp;<b>All features above +</b><br></li>
+            <li>&nbsp;&nbsp;<b>Telephone support</b><br></li>
+            <li>&nbsp;&nbsp;<b>Web SDK</b><br></li>
+            <li>&nbsp;&nbsp;<b>Android SDK</b><br></li>
+            <li>&nbsp;&nbsp;<b>4000 credits</b> just <span style="color: #F8CC20;font-size: 16px;">1k &euro; </span>/ mo<br><br></li>
+        </ul>
+      </ol>
+      <br>
+      <b>Need a KYCBox, Mobile SDK or Web SDKs?</b><br><br>
+      <a href="https://www.kyc3.com/contact-us/"><button>CONTACT US</button></a>
+    </div>
+    <div class="sticky-box" *ngIf="!euroPrices">
+        <b>Pick the plan you need today, change plans anytime.</b><br><br>
+        <ol>
+          <li style="color: #F8CC20;">&nbsp;&nbsp;<b>STARTER</b></li><br>
+          <ul>
+              <li>&nbsp;&nbsp;<b>14 Day Risk FREE</b><br></li>
+              <li>&nbsp;&nbsp;<b>KYC Report Builder</b><br></li>
+              <li>&nbsp;&nbsp;<b>Enhanced Search</b><br></li>
+              <li>&nbsp;&nbsp;<b>Batch Screening</b><br></li>
+              <li>&nbsp;&nbsp;<b>Quick Report</b><br></li>
+              <li>&nbsp;&nbsp;<b>25 credits</b> just <span style="color: #F8CC20;font-size: 16px;">50 &#36; </span>/ mo<br><br></li>
+          </ul>
+          <li style="color: #F8CC20;">&nbsp;&nbsp;<b>BASIC</b></li><br>
+          <ul>
+              <li>&nbsp;&nbsp;<b>All features above +</b><br></li>
+              <li>&nbsp;&nbsp;<b>100 credits</b> just <span style="color: #F8CC20;font-size: 16px;">100 &#36; </span>/ mo<br><br></li>
+          </ul>
+          <li style="color: #F8CC20;">&nbsp;&nbsp;<b>PRO / DEVELOPER</b></li><br>
+          <ul>
+              <li>&nbsp;&nbsp;<b>All features above +</b><br></li>
+              <li>&nbsp;&nbsp;<b>REST API</b><br></li>
+              <li>&nbsp;&nbsp;<b>500 credits</b> just <span style="color: #F8CC20;font-size: 16px;">250 &#36; </span>/ mo<br><br></li>
+          </ul>
+          <li style="color: #F8CC20;">&nbsp;&nbsp;<b>BUSINESS</b></li><br>
+          <ul>
+              <li>&nbsp;&nbsp;<b>All features above +</b><br></li>
+              <li>&nbsp;&nbsp;<b>Multiple Accounts</b><br></li>
+              <li>&nbsp;&nbsp;<b>1500 credits</b> just <span style="color: #F8CC20;font-size: 16px;">500 &#36; </span>/ mo<br><br></li>
+          </ul>
+          <li style="color: #F8CC20;">&nbsp;&nbsp;<b>ENTERPRISE</b></li><br>
+          <ul>
+              <li>&nbsp;&nbsp;<b>All features above +</b><br></li>
+              <li>&nbsp;&nbsp;<b>Telephone support</b><br></li>
+              <li>&nbsp;&nbsp;<b>Web SDK</b><br></li>
+              <li>&nbsp;&nbsp;<b>Android SDK</b><br></li>
+              <li>&nbsp;&nbsp;<b>4000 credits</b> just <span style="color: #F8CC20;font-size: 16px;">1k &#36; </span>/ mo<br><br></li>
+          </ul>
+        </ol>
+        <br>
+        <b>Need a KYCBox, Mobile SDK or Web SDKs?</b><br><br>
+        <a href="https://www.kyc3.com/contact-us/" target="_blank"><button>CONTACT US</button></a>
+      </div> -->
+</div>

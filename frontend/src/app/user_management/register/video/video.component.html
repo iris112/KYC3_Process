@@ -1,0 +1,41 @@
+<form #personalForm="ngForm" class="editForm" novalidate>
+                <div class="tab-pane fade in active">
+                    <h4 class="head text-center">{{title}}</h4>
+                    <br/>
+                    <div class='row'>
+                        <div class='col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8'>
+                            <div class="row text-center" style="font-size: 16px;">
+                                    <ol style="text-align: justify;font-size: 16px;padding-left: 15px;">
+                                            <li>Please minimize background noise. Turn off your music and make sure nobody else is speaking loudly in the background.</li>
+                                            <li>Make sure that your webcam lens is clean.</li>
+                                            <li><b>Click START.</b></li>
+                                            <li>Try to place your face in the red circle.</li>
+                                            <li>A countdown will start.</li>
+                                            <li>After the countdown, read out the words that appear on the screen.</li>
+                                    </ol>
+                                    <div style="height: 25px;"></div>
+                                    <button id="startButton" class="btn btn-success" (click)="startRecording()" style="font-size: 16px;background-color: #1F4694;border:none;">START</button>
+                                    <div style="height: 50px"></div>
+                            </div>
+                            <div style="height: 710px; margin-top: -375px;"></div>
+                            <div class="row text-center">
+                                                        <div class="words" style="display: none;"></div>
+                                                        <div class="overlay-desc" style="margin-top: 300px;color: black;">
+                                                                <video id="videoElement" width="80%" style="position: absolute;z-index: 1;" autoplay></video>
+                                                                <!-- <div class="overlay-text" style="position: absolute;z-index: 2;"></div> -->
+                                                        </div>
+                                                        <video id="final-video" width="100%" style="display: none;"></video>
+                            </div>
+                        </div>
+                    </div>
+                            <div style="height: 140px;"></div>
+                                
+                            <div class="form-group text-center">
+                                <button type="button" class="btn btn-outline-rounded btn-default" (click)="goToPrevious(null)"> <span style="margin-right:10px;" class="glyphicon glyphicon-arrow-left"></span> Previous</button>
+                                <button id="next-button" type="button" class="btn btn-outline-rounded btn-info" (click)="goToNext(null)" style="display: none;"> Next <span style="margin-left:10px;" class="glyphicon glyphicon-arrow-right"></span></button>
+                                <img [hidden]="!loading" src="{{loadingImg}}" width="35" />
+                            </div>
+                        </div>
+
+            </form>
+            

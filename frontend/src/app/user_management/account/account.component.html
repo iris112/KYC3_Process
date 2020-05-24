@@ -1,0 +1,91 @@
+<div class="col-md-10 col-md-offset-1" xmlns:height="http://www.w3.org/1999/xhtml">
+    <p class="text-center">Account page for <span class="text-primary" [style.color]="mainColor">{{username}}</span></p>
+    <div style="height: 30px"></div>
+    <div class="table-responsive"> 
+      <div style="height: 40px"></div>         
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><b>KYC status:</b></td>
+            <td [ngSwitch] = "model?.status?.kycStatus">
+                <i *ngSwitchCase="'0'" style="color: #bdbdbd" class="fa fa-circle" aria-hidden="true"></i>
+                <i *ngSwitchCase="'1'" style="color: #72C245" class="fa fa-circle" aria-hidden="true"></i>
+                <i *ngSwitchCase="'2'" style="color: #FDD32B" class="fa fa-circle" aria-hidden="true"></i>
+                <i *ngSwitchCase="'3'" style="color: #D60000" class="fa fa-circle" aria-hidden="true"></i>
+            </td>
+          </tr>
+          <tr>
+            <td><b>First Name:</b></td>
+            <td>{{model?.firstName}}</td>
+          </tr>
+          <tr>
+              <td><b>Last Name:</b></td>
+              <td>{{model?.lastName}}</td>
+          </tr>
+          <tr>
+              <td><b>Date of Birth:</b></td>
+              <td>{{model?.details?.dateOfBirth}}</td>
+          </tr>
+          <tr>
+              <td><b>Nationality</b></td>
+              <td>{{model?.details?.nationality}}</td>
+          </tr>
+          <tr>
+            <td><b>Wallet:</b></td>
+            <td>{{model?.details?.walletAddress}}</td>
+          </tr>
+          <tr>
+            <td><b>Amount:</b></td>
+            <td>{{model?.details?.amount}} {{model?.details?.currencyType}}</td>
+        </tr>
+          <tr>
+              <td><b>Username:</b></td>
+              <td>{{model?.userName}}</td>
+          </tr>
+          <tr>
+              <td><b>Email:</b></td>
+              <td>{{model?.email}}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <div class="table-responsive"> 
+    <div style="height: 40px"></div>   
+    <p>Images you uploaded</p>
+    <div class="uploadedImages text-center"> 
+      <p style="font-size: 12px">Identity Document Front</p>
+      <br><img *ngIf="safePassportFront" [src]="safePassportFront" style="height:200px"> 
+    </div>
+    <div class="uploadedImages text-center"> 
+      <p style="font-size: 12px">Identity Document Back</p>
+      <br><img *ngIf="safePassportBack" [src]="safePassportBack" style="height:200px"> 
+      <br><div *ngIf="!safePassportBack" style="color: crimson">Back side of identity document not uploaded.</div>
+    </div>
+    <!-- <div class="uploadedImages text-center"> 
+      <p style="font-size: 12px">Selfie</p>
+      <br><img *ngIf="safeSelfie" [src]="safeSelfie" style="height:200px"> 
+    </div> -->
+    <div class="uploadedImages text-center"> 
+      <p style="font-size: 12px">Proof of Residence</p>
+      <br><img *ngIf="safeProofOfResidence" [src]="safeProofOfResidence" style="height:200px"> 
+    </div>    
+    <br>
+    <div class="text-center"> 
+      <i class="fa fa-arrow-left" style="font-size:24px;color:gray;" (click)="plusDivs(-1)" aria-hidden="true"></i>
+      <i class="fa fa-arrow-right" style="font-size:24px;color:gray;" (click)="plusDivs(+1)" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="table-responsive col-md-6"> 
+    <div style="height: 40px"></div> 
+    <button type="button" class="btn btn-primary" style="cursor: pointer;" (click)="changePasswordButton()" [style.background-color]="mainColor" style="color: white;"><span class="glyphicon glyphicon-cog"></span> Settings</button>
+    <div style="height: 20px"></div>  
+    <div *ngIf="changePasswordClicked">
+      <div style="height: 10px"></div> 
+      <p>Change Password</p>
+      <div style="height: 10px"></div> 
+      <password-change></password-change>
+</div>
+</div>
+<!-- <pdf-viewer src="./../assets/pdf.pdf" [show-all]="false" [original-size]="true" [fit-to-page]="true"></pdf-viewer> -->
+</div>
+

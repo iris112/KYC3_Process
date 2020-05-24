@@ -1,0 +1,4 @@
+curl -v -F "firstName=Markus" -F "lastName=Forster" -F "userName=mafo" -F "email=m.forster@icloud.com" -F "password=letmein" -F "taxCountry=DE" -F "nationality=DE" -F "dateOfBirth=1977-01-28" -F "address=hossa" -F "ethSourceAddress=#234" -F "sourceOfFunds=lalala" -F "proofOfResidence=@markus_passport.jpg" -F "selfie=@1.jpg" -F "passportFront=@markus_passport.jpg" -F "passportBack=@markus_passport.jpg" http://localhost:8080/addUse
+
+
+

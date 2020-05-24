@@ -1,0 +1,19 @@
+version: '3'
+services:
+  icotool:
+    build:
+      context: ./
+    links:
+      - postgres
+    ports:
+     - "8080:8080"
+     - "7171:7171" #tomcat debug port
+  postgres:
+    image: "postgres:latest"
+#    volumes:
+#      - ./database:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dev

@@ -1,0 +1,61 @@
+p {
+  color: white;
+  font-size: 14pt;
+}
+
+table {
+  color: whitesmoke;
+  border: none;
+}
+
+table td {
+  border: none;
+}
+
+table tr {
+  border: none;
+}
+
+.form-group span {
+    color:black;
+    font-size: 14px;
+}
+
+.form-group .required-info {
+  color:#f68c1f;
+  font-size: 12pt;	
+}
+
+.form-group .ng-control {
+  font-size: 14px;
+}
+
+label {
+  color: whitesmoke;
+}
+
+.wrapper {
+  display: flex;
+}
+
+#content {
+  border-left: 10px solid whitesmoke;
+}
+
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  height: 100vh;
+}
+
+legend {
+  font-weight: bold;
+  padding-bottom: inherit;
+  margin-bottom: 20px;
+  cursor:pointer;
+  border-bottom: 2px solid #c1c0c0
+}
+
+.components li {
+  padding-bottom: 10px;
+}

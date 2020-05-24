@@ -1,0 +1,31 @@
+<div class="col-md-10 col-md-offset-1" xmlns:height="http://www.w3.org/1999/xhtml">
+    <div style="height: 30px"></div>
+    <div class="wrapper">
+  
+        <nav id="sidebar" class="col-md-4" style="background-color: white;">
+            <!-- Sidebar Header -->
+            <div class="sidebar-header" style="padding: 20px">
+                <h3><span class="glyphicon glyphicon-cog" style="font-size: 18px"></span> Settings</h3>
+            </div>
+  
+            <!-- Sidebar Links -->
+            <ul class="list-unstyled components" style="padding-left: 20px; padding-right: 20px;padding-bottom: 5px">
+                <li><a [style.color]="mainColor" (click)="menuClick('password')">Change Password</a></li>
+                <li><a [style.color]="mainColor" (click)="menuClick('createAdmin')">Create Admin</a></li>
+                <!-- <li><a (click)="menuClick('emailServer')">Email Server Setup</a></li>
+                <li><a (click)="menuClick('emailTemplate')">Email Template Setup</a></li> -->
+                <!-- <li><a (click)="menuClick('graphs')">Graphs</a></li> -->
+            </ul>
+        </nav>
+  
+        <div id="content" class="col-md-8" style="background-color: white; padding: 20px">
+            <div style="height: 40px"></div>
+              <password-change *ngIf="passwordDisplay"></password-change>
+              <create-admin *ngIf="createAdminDisplay"></create-admin>
+              <email-server *ngIf="emailServerDisplay"></email-server>
+              <email-template *ngIf="emailTemplateDisplay"></email-template>
+        </div>
+  
+  </div>
+  
+  

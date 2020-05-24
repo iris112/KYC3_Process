@@ -1,0 +1,36 @@
+<form #emailTemplateForm="ngForm" class="editForm" novalidate>
+        <h3 class="text-center">Email Template Setup</h3><br>
+        <div class="row">
+                <div class='col-xs-12 col-sm-6'>
+                        <div class="form-group">
+                                <label class="control-label" for="registrationTemplate"><b>Registration email template:</b></label>  
+                                <input class="form-control input-md" #registrationTemplate id="registrationTemplate" name="registrationTemplate" type="file" (change)="processRegistrationTemplate($event.target.files)">
+                        </div>
+                </div>
+                <div class='col-xs-12 col-sm-6'>
+                        <div class="form-group">
+                                <label class="control-label" for="whitelistTemplate"><b>Whitelisted email template:</b></label>  
+                                <input class="form-control input-md" #whitelistTemplate id="whitelistTemplate" name="whitelistTemplate" type="file" (change)="processWhitelistTemplate($event.target.files)" >
+                        </div>
+                </div>
+        </div>   
+        <div class="row">
+            <div class='col-xs-12 col-sm-6'>
+                    <div class="form-group">
+                            <label class="control-label" for="moreInformationTemplate"><b>Need more information template:</b></label>  
+                            <input class="form-control input-md" #moreInformationTemplate id="moreInformationTemplate" name="moreInformationTemplate" type="file" (change)="processMoreInfoTemplate($event.target.files)">
+                    </div>
+            </div>
+            <div class='col-xs-12 col-sm-6'>
+                    <div class="form-group">
+                            <label class="control-label" for="blacklistTemplate"><b>Blacklisted email template:</b></label>  
+                            <input class="form-control input-md" #blacklistTemplate id="blacklistTemplate" name="blacklistTemplate" type="file" (change)="processBlacklistTemplate($event.target.files)">
+                    </div>  
+            </div> 
+        </div>
+    
+        <div class="form-group">
+        <button type="button" class="btn btn-primary" (click)="saveTemplate(emailTemplateForm)">Save</button>
+        </div>
+    </form>
+    

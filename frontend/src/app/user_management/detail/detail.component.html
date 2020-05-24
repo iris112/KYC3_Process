@@ -1,0 +1,357 @@
+<div class="col-md-10 col-md-offset-1" xmlns:height="http://www.w3.org/1999/xhtml">
+  <p class="text-center">Details page for <span class="text-primary" [style.color]="mainColor">{{username}}</span></p>
+  <div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-4"><a [routerLink]="['/enterprise']" class="text-center" [style.color]="mainColor">Back to overview</a></div>
+  </div>  
+  <div style="height: 30px"></div>
+  <div class="table-responsive" style="overflow-x: hidden;">
+    <div class="row">
+    <div class="col-sm-6"> 
+    <div style="height: 40px"></div>
+    <p>Information provided by user</p>    
+    <table class="table">
+      <tbody>
+        <tr>
+          <td><b>First Name:</b></td>
+          <td>{{model?.firstName}}</td>
+        </tr>
+        <tr>
+            <td><b>Last Name:</b></td>
+            <td>{{model?.lastName}}</td>
+        </tr>
+        <tr>
+            <td><b>Date of Birth:</b></td>
+            <td>{{model?.details?.dateOfBirth}}</td>
+        </tr>
+        <tr>
+            <td><b>Nationality:</b></td>
+            <td>{{model?.details?.nationality}}</td>
+        </tr>
+        <tr>
+          <td><b>Address:</b></td>
+          <td>{{model?.details?.address}}</td>
+        </tr>
+        <tr>
+          <td><b>Wallet:</b></td>
+          <td>{{model?.details?.walletAddress}}</td>
+        </tr>
+        <tr>
+          <td><b>Amount:</b></td>
+          <td>{{model?.details?.amount}} {{model?.details?.currencyType}}</td>
+        </tr>
+        <tr>
+            <td><b>Username:</b></td>
+            <td>{{model?.userName}}</td>
+        </tr>
+        <tr>
+            <td><b>Email:</b></td>
+            <td>{{model?.email}}</td>
+        </tr>
+        <tr>
+          <td><b>Tax country:</b></td>
+          <td>{{model?.details?.taxCountry}}</td>
+        </tr>
+        <tr>
+          <td><div style="height: 15px;"></div>
+            <b>Registration date and time:</b>
+          </td>
+          <td>
+            <div style="height: 15px;"></div>
+            {{model?.details?.registrationTimestamp | date:'dd-MM-yyyy HH:mm'}}
+          </td>
+        </tr>
+        <tr *ngIf="model?.details?.telegramName">
+          <td><b>Telegram name:</b></td>
+          <td>{{model?.details?.telegramName}}</td>
+        </tr>
+        <tr *ngIf="model?.details?.twitterName">
+          <td><b>Twitter name:</b></td>
+          <td>{{model?.details?.twitterName}}</td>
+        </tr>
+        <tr *ngIf="model?.details?.linkedinProfile">
+          <td><b>LinkedIn profile:</b></td>
+          <td>{{model?.details?.linkedinProfile}}</td>
+        </tr>
+        <tr *ngIf="model?.details?.facebookProfile">
+          <td><b>Facebook profile:</b></td>
+          <td>{{model?.details?.facebookProfile}}</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="col-sm-6"> 
+        <div style="height: 40px"></div>
+        <p>KYC status panel</p> 
+        <table class="table" style="overflow-x: hidden;">
+          <tbody>
+            <tr>
+              <td><b>Change status:</b></td>
+              <td>
+                <select style="color: black;" id="risk" class="ng-control" name="risk" [(ngModel)]="model.status.kycStatus" #risk="ngModel" (change)="setKYCStatus(model.userName,model.status.kycStatus)">
+                <option value="1">Low</option>
+                <option value="2">Medium</option>
+                <option value="3">High</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><b>Overall status:</b></td>
+              <td [ngSwitch] = "model?.status?.kycStatus">
+                  <i *ngSwitchCase="'0'" style="color: #bdbdbd" class="fa fa-circle" aria-hidden="true"></i>
+                  <i *ngSwitchCase="'1'" style="color: #72C245" class="fa fa-circle" aria-hidden="true"></i>
+                  <i *ngSwitchCase="'2'" style="color: #FDD32B" class="fa fa-circle" aria-hidden="true"></i>
+                  <i *ngSwitchCase="'3'" style="color: #D60000" class="fa fa-circle" aria-hidden="true"></i>
+              </td>
+            </tr>
+            <tr>
+              <td><b>ID status:</b></td>
+              <td [ngSwitch] = "model?.status?.identityDocumentStatus">
+                <i *ngSwitchCase="'gray'" title="Not checked" style="color: #bdbdbd" class="fa fa-circle" aria-hidden="true"></i>
+                <i *ngSwitchCase="'approve'" title="Approved" style="color: #72C245" class="fa fa-circle" aria-hidden="true"></i>
+                <i *ngSwitchCase="'further'" title="Further research" style="color: #FDD32B" class="fa fa-circle" aria-hidden="true"></i>
+                <i *ngSwitchCase="'reject'" title="Rejected" style="color: #D60000" class="fa fa-circle" aria-hidden="true"></i>
+              </td>
+            </tr>
+            <tr>
+              <td><b>Proof of residence status:</b></td>
+              <td [ngSwitch] = "model?.status?.proofOfResidenceStatus">
+                <i *ngSwitchCase="'gray'" title="Not checked" style="color: #bdbdbd" class="fa fa-circle" aria-hidden="true"></i>
+                <i *ngSwitchCase="'approve'" title="Approved" style="color: #72C245" class="fa fa-circle" aria-hidden="true"></i>
+                <i *ngSwitchCase="'further'" title="Further research" style="color: #FDD32B" class="fa fa-circle" aria-hidden="true"></i>
+                <i *ngSwitchCase="'reject'" title="Rejected" style="color: #D60000" class="fa fa-circle" aria-hidden="true"></i>
+              </td>
+            </tr>
+            <tr>
+                <td><b>PEP Score:</b></td>
+            <td [ngSwitch] = "model?.riskResult?.pepScore">
+                <i *ngSwitchCase="'0'" title="Not Started" style="color: #bdbdbd" class="fa fa-circle" aria-hidden="true"></i>
+                <i *ngSwitchCase="'1'" title="Low Risk" style="color: #72C245" class="fa fa-circle" aria-hidden="true"></i>
+                <i *ngSwitchCase="'2'" title="Medium Risk" style="color: #FDD32B" class="fa fa-circle" aria-hidden="true"></i>
+                <i *ngSwitchCase="'3'" title="High Risk" style="color: #D60000" class="fa fa-circle" aria-hidden="true"></i>
+              </td>
+            </tr>
+            <tr>
+              <td><b>Sanction Score:</b></td>
+              <td [ngSwitch] = "model?.riskResult?.sanctionScore">
+                <i *ngSwitchCase="'0'" title="Not Started" style="color: #bdbdbd" class="fa fa-circle" aria-hidden="true"></i>
+                <i *ngSwitchCase="'1'" title="Low Risk" style="color: #72C245" class="fa fa-circle" aria-hidden="true"></i>
+                <i *ngSwitchCase="'2'" title="Medium Risk" style="color: #FDD32B" class="fa fa-circle" aria-hidden="true"></i>
+                <i *ngSwitchCase="'3'" title="High Risk" style="color: #D60000" class="fa fa-circle" aria-hidden="true"></i>
+              </td>
+            </tr>
+            <tr>
+              <td><b>Liveliness:</b></td>
+              <td [ngSwitch] = "model?.status?.recognitionResult?.liveliness">
+                  <i *ngSwitchCase="true" title="True" style="color: #72C245" class="fa fa-circle" aria-hidden="true"></i>
+                  <i *ngSwitchCase="false" title="False" style="color: #D60000" class="fa fa-circle" aria-hidden="true"></i>
+              </td>
+            </tr>
+            <tr>
+                <td><b>Face Match:</b></td>
+                <td [ngSwitch] = "model?.status?.recognitionResult?.faceMatch">
+                    <i *ngSwitchCase="true" title="True" style="color: #72C245" class="fa fa-circle" aria-hidden="true"></i>
+                    <i *ngSwitchCase="false" title="False" style="color: #D60000" class="fa fa-circle" aria-hidden="true"></i>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Risk Score:</b></td>
+              <td>{{model?.riskResult?.riskScore | number:'2.2'}}</td>
+            </tr>
+            <tr>
+              <td><b>2FA:</b></td>
+              <td [ngSwitch] = "model?.status?.wordMatch">
+                  <i *ngSwitchCase="true" title="True" style="color: #72C245" class="fa fa-circle" aria-hidden="true"></i>
+                  <i *ngSwitchCase="false" title="False" style="color: #FDD32B" class="fa fa-circle" aria-hidden="true"></i>
+              </td>
+            </tr>
+            <tr>
+                <td><b>ID data:</b></td>
+                <td>
+                    <div *ngIf="model?.status?.mrz">
+                      <ng-container *ngIf="model.status.mrz.mrzCheck==true;else yellow"><i style="color: #72C245" class="fa fa-circle" aria-hidden="true"></i></ng-container>
+                      <ng-template #yellow>
+                          <ng-container *ngIf="model.status.mrz.passportNumber != '';else red"><i style="color: #FDD32B" class="fa fa-circle" aria-hidden="true"></i></ng-container>
+                      </ng-template>
+                      <ng-template #red><i style="color: #D60000" class="fa fa-circle" aria-hidden="true"></i></ng-template>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Comment:</b></td>
+                <td>{{model?.status?.comment}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="form-group">
+          <div style="height: 20px"></div>
+          <textarea id="comment" type="text" class="form-control" name="comment" placeholder="Type new comment here..." [(ngModel)]="model.comment"></textarea><br>
+          <div style="height: 30 px"></div>
+          <button class="btn btn-warning" (click)="saveComment()" style="background-color: gray">Save comment</button>
+          <button (click)="checkUsers()" class="btn btn-primary" [style.background-color]="mainColor">Check</button>
+          <!-- <button (click)="exportUser()" class="btn btn-primary">Export</button> -->
+          <img *ngIf="loading" [src]="loadingImg">
+          <br>
+          <div style="height: 30 px"></div>
+        </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+      <div style="height: 40px"></div>   
+      <p>Selfie video</p>
+      <video id="selfie-video" width="100%" controls>
+      </video>
+  </div>
+  <div class="col-sm-6">
+    <div style="height: 40px"></div>   
+    <p>Voice recognition test</p>
+    <div class="table-responsive" style="overflow-x: hidden;">
+      <table class="table" style="background-color: white;font-size: 11px;">
+          <tbody>
+            <!-- <tr style="border: 3px solid whitesmoke;text-align: center;">
+                <td style="border: 3px solid whitesmoke"><b></b></td>
+                <td style="border: 3px solid whitesmoke"><b>1</b></td>
+                <td style="border: 3px solid whitesmoke"><b>2</b></td>
+                <td style="border: 3px solid whitesmoke"><b>3</b></td>
+                <td style="border: 3px solid whitesmoke"><b>4</b></td>
+                <td style="border: 3px solid whitesmoke"><b>5</b></td>
+              </tr> -->
+            <tr style="border: 3px solid whitesmoke;text-align: center;">
+              <!-- <td style="border: 3px solid whitesmoke"><b>Target</b></td> -->
+              <ng-container *ngFor="let word of wordsObject.words; let i = index" [attr.data-index]="i">
+                  <ng-container *ngIf="wordsObject.match[i] == 1; then green else red"></ng-container>
+                  <ng-template #green><td style="border: 3px solid whitesmoke; background-color: green;color:white;">{{word | uppercase}}</td></ng-template>
+                  <ng-template #red><td style="border: 3px solid whitesmoke; background-color: red;color: white;">{{word | uppercase}}</td></ng-template>
+              </ng-container>
+            </tr>
+            <!-- <tr style="border: 3px solid whitesmoke;text-align: center;">
+              <td style="border: 3px solid whitesmoke"><b>Detected</b></td>
+              <ng-container *ngFor="let word of wordsObject.returnWords; let i = index" [attr.data-index]="i">
+                  <ng-container *ngIf="wordsObject.match[i] == 1; then green else red"></ng-container>
+                  <ng-template #green><td style="border: 3px solid whitesmoke; background-color: green;color:white;">{{word | uppercase}}</td></ng-template>
+                  <ng-template #red><td style="border: 3px solid whitesmoke; background-color: red;color: white;">{{word | uppercase}}</td></ng-template>
+              </ng-container>
+            </tr> -->
+          </tbody>
+      </table>
+  </div>
+  </div>
+</div>
+<div class="table-responsive" style="overflow-x: hidden;"> 
+    <ng-template #passportFrontTemplate>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left"></h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="largePassportFront.hide()">
+            <span aria-hidden="true" style="color: gray; font-size: 35px">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+            <img *ngIf="safePassportFront" [src]="safePassportFront" style="width: 80%"> 
+        </div>
+    </ng-template>
+    <ng-template #passportBackTemplate>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left"></h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="largePassportBack.hide()">
+            <span aria-hidden="true" style="color: gray; font-size: 35px">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+            <img *ngIf="safePassportBack" [src]="safePassportBack" style="width: 80%"> 
+        </div>
+    </ng-template>
+    <ng-template #proofOfResidenceTemplate>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left"></h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="largeProofOfResidence.hide()">
+            <span aria-hidden="true" style="color: gray; font-size: 35px">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+            <img *ngIf="safeProofOfResidence" [src]="safeProofOfResidence" style="width: 80%"> 
+        </div>
+    </ng-template>
+  <div class="row">
+    <div class="col-sm-6">
+      <div style="height: 40px"></div>   
+      <p>Identity document uploaded</p>
+      <div class="uploadedImages text-center"> 
+        <p style="font-size: 12px">Identity Document Front</p>
+        <br><img *ngIf="safePassportFront" (click)=enlargePassportFront(passportFrontTemplate) [src]="safePassportFront" style="height:200px"> 
+      </div>
+      <div class="uploadedImages text-center"> 
+        <p style="font-size: 12px">Identity Document Back</p>
+        <br><img *ngIf="safePassportBack" (click)=enlargePassportBack(passportBackTemplate) [src]="safePassportBack" style="height:200px"> 
+        <br><div *ngIf="!safePassportBack" style="color: crimson">Back side of identity document not uploaded.</div>
+      </div>
+      <!-- <div class="uploadedImages text-center"> 
+        <p style="font-size: 12px">Selfie</p>
+        <br><img *ngIf="safeSelfie" (click)=enlargeSelfie(selfieTemplate) [src]="safeSelfie" style="height:200px"> 
+      </div> -->
+      <div class="uploadedImages text-center"> 
+        <p style="font-size: 12px">Proof of Residence</p>
+        <br><img *ngIf="safeProofOfResidence" (click)=enlargeProofOfResidence(proofOfResidenceTemplate) [src]="safeProofOfResidence" style="height:200px"> 
+      </div>    
+      <br>
+      <div class="text-center"> 
+        <i class="fa fa-arrow-left" style="font-size:24px;color:gray;" (click)="plusDivs(-1)" aria-hidden="true"></i>
+        <i class="fa fa-arrow-right" style="font-size:24px;color:gray;" (click)="plusDivs(+1)" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div style="height: 40px"></div>   
+      <p>Information extracted from identity document</p>
+      <div class="table-responsive"> 
+          <table class="table">
+              <tbody>
+                <tr>
+                  <td><b>First Name:</b></td>
+                  <td>{{model?.status?.mrz?.givenName}}</td>
+                </tr>
+                <tr>
+                    <td><b>Last Name:</b></td>
+                    <td>{{model?.status?.mrz?.surname}}</td>
+                </tr>
+                <tr>
+                    <td><b>Date of Birth:</b></td>
+                    <td>{{model?.status?.mrz?.dateOfBirth}}</td>
+                </tr>
+                <tr>
+                  <td><b>Date of Expiration:</b></td>
+                  <td>{{model?.status?.mrz?.dateOfExpiration}}</td>
+                </tr>
+                <tr>
+                    <td><b>Issuing country</b></td>
+                    <td>{{model?.status?.mrz?.issuingCountry}}</td>
+                </tr>
+                <tr>
+                    <td><b>Passport number:</b></td>
+                    <td>{{model?.status?.mrz?.passportNumber}}</td>
+                </tr>
+                <tr>
+                    <td><b>Date of birth check:</b></td>
+                    <td [ngSwitch] = "model?.status?.mrz?.dobCheck" *ngIf="model?.status?.mrz?.passportNumber != ''">
+                        <i *ngSwitchCase="true" style="color: #72C245" class="fa fa-circle" aria-hidden="true"></i>
+                        <i *ngSwitchCase="false" style="color: #D60000" class="fa fa-circle" aria-hidden="true"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Date of expiration check:</b></td>
+                    <td [ngSwitch] = "model?.status?.mrz?.doeCheck" *ngIf="model?.status?.mrz?.passportNumber != ''">
+                        <i *ngSwitchCase="true" style="color: #72C245" class="fa fa-circle" aria-hidden="true"></i>
+                        <i *ngSwitchCase="false" style="color: #D60000" class="fa fa-circle" aria-hidden="true"></i>
+                    </td>
+                </tr>
+              </tbody>
+            </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <a [routerLink]="['/enterprise']" class="btn btn-primary">Back to overview</a><br> -->
+</div>
+

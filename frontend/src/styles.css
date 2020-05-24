@@ -1,0 +1,349 @@
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~datatables.net-bs4/css/dataTables.bootstrap4.css";
+@import "~datatables.net-select-dt/css/select.dataTables.css";
+@import "~datatables.net-buttons-dt/css/buttons.dataTables.css";
+/* @import "assets/css/bootstrap.min.css"; */
+/* @import "assets/css/font-awesome.css"; */
+@import "assets/css/riliwan-rabo.css";
+@import "assets/css/style.css";
+@import "assets/css/form.css";
+@import "assets/css/loading-bars.css";
+
+footer {
+    background: whitesmoke;
+    color: black;
+}
+
+body {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.navbar-brand {
+    padding: 0px;
+}
+
+.navbar-brand>img {
+    height: 90%;
+    padding: 15px;
+    padding-top: 25px;
+    width: auto;
+}
+
+.navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
+    color: #1F4694;
+}
+
+.navbar {
+    margin-bottom:0;
+    background-color: whitesmoke;
+    color: black;
+}
+
+.menu .navbar-brand {
+    height: 80px;
+}
+  
+.menu .nav >li >a {
+    color: black;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.menu .nav >li >a:hover {
+    color: #838282;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.menu .navbar-toggle {
+    padding: 10px;
+    margin: 25px 15px 25px 0;
+}
+
+a {
+    cursor: pointer;
+}
+
+.help-block {
+    font-size: 13px;
+    color: red !important;
+}
+
+.has-error {
+    color: red;
+}
+
+.pagination>.active>a {
+    background-color: #1F4694;
+    border-color: #1F4694;
+}
+
+.dataTables_filter>label {
+    color: black !important;
+}
+
+.dataTables_wrapper>label {
+    color: black !important;
+}
+
+.dataTables_length>label {
+    color: black !important;
+}
+  
+.dataTables_info {
+    color: black !important;
+}
+
+.dataTables_wrapper span.select-item {
+    display: none;
+}
+
+table.dataTable td {
+    text-align: center;
+}
+
+table.dataTable tbody tr.selected {
+    background-color: #1F4694;
+    color: white !important;
+}
+
+table.dataTable tbody tr.selected a {
+    color: white !important;
+}
+
+table.dataTable {
+    color: black !important;
+}
+
+table.dataTable tr {
+    color: black !important;
+}
+
+.btn-info:hover {
+    background-color: #1F4694 !important;
+    border-color: #1F4694 !important;
+}
+
+.btn-info:active {
+    background-color: #1F4694 !important;
+    border-color: #1F4694 !important;
+}
+
+.jumbotron {
+    overflow:auto;
+    margin-bottom:0;
+    background-color: whitesmoke;
+    /* Full height */
+    /* Center and scale the image nicely */
+    /* background-position: center;
+    background-repeat: no-repeat;
+    background: url('./assets/images/background.png'); */
+    background-size: cover;
+}
+
+.btn {
+    border-radius: 0;
+}
+  
+.btn-warning {
+    border-radius: 0;
+    border-color: transparent;
+    font-size: 14px;
+}
+
+.btn-info {
+    border-radius: 0;
+    border-color: transparent;
+    font-size: 14px;
+    background-color: black
+}
+
+.btn-primary {
+    border-radius: 0;
+    border-width: 0;
+    background-color: #337ab7;
+    font-size: 14px;
+}
+  
+.form-group input {
+    border-radius: 0px;
+}  
+
+.form-control select {
+    border-radius: 0px;
+}  
+
+label {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.btn-link {
+    font-size: 14px;
+}
+
+legend {
+    font-family: 'Helvetica';
+    padding-bottom: inherit;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #c1c0c0
+}
+
+.oval {
+    height: 200px;
+    width: 160px;
+    border: 5px solid red;
+    border-style: dashed;
+    border-radius: 50%;
+}
+
+.photo {
+    height: 140px;
+    width: 110px;
+    border: 4px solid red;
+    border-style: dashed;
+}
+
+.overlay-drivers {
+    background-image: rgba(255, 255, 255, 0);
+    position: relative;
+    z-index: 0;
+    font-size: 45px;
+    color: white;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#modal-gallery-container .crimson {
+    color: crimson !important;
+}
+
+#modal-gallery-container .gray {
+    color: gray !important;
+}
+
+#modal-gallery-container .green {
+    color: green !important;
+}
+
+#modal-gallery-container .yellow {
+    color: #f8cc20 !important;
+}
+
+#current-image {
+    height: 500px !important;
+    width: auto;
+}
+
+#modal-gallery-container {
+    background-color: rgba(0,0,0,0.65);
+}
+
+.dots-container {
+    margin-top: 30px;
+}
+
+figcaption {
+    background-color: transparent !important;
+    position: static !important;
+    margin-top: 15px !important;
+}
+
+.overlay-id {
+    position: relative;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay-desc {
+    background: rgba(255, 255, 255, 0);
+    position: absolute;
+    font-size: 48px;
+    color: white;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.form-control:focus {
+    border-color: #1F4694;
+    box-shadow: 0 0 10px #1F4694;
+}
+
+img[alt=approve]{
+    border: 3px solid green;
+    height: auto;
+    width: 100px;
+}
+
+img[alt=reject]{
+    border: 3px solid crimson;
+    height: auto;
+    width: 100px;
+}
+
+img[alt=further]{
+    border: 3px solid #f8cc20;
+    height: auto;
+    width: 100px;
+}
+
+img[alt=gray]{
+    border: none;
+    height: auto;
+    width: 100px;
+}
+
+#current-image[alt=approve]{
+    border: none;
+}
+
+#current-image[alt=reject]{
+    border: none;
+}
+
+#current-image[alt=further]{
+    border: none;
+}
+
+#current-image[alt=gray]{
+    border: none;
+}
+
+.buttons-container{
+    color: white;
+}
+
+.buttons-container:after{
+    content: "Press the 'Esc' key to exit.";
+}
+
+
+ng-select.ng-invalid.ng-touched .ng-control {
+    border-color: red;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px #fde6e8;
+}
+
+@media only screen and (max-width: 767px) {
+    .container {
+        overflow-y: inherit!important;
+    }
+}

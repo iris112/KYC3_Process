@@ -1,0 +1,56 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { isNull, isUndefined } from 'lodash';
+
+@Injectable()
+export class HttpClientService {
+
+  private _host: string;
+  private _authToken: string;
+  private __headers: HttpHeaders;
+
+  constructor(private _http: HttpClient, private _config: AppConfig, private _localStorageService: LocalStorageService) {
+      this._host = 'http://192.168.178.8App2:8080/all'; // Your Host here, get it from a configuration file
+//      this._authToken = ''; // Your token here, get it from API
+  }
+
+  /**
+   * @returns {HttpHeaders}
+   */
+   createAuthorizationHeader(): HttpHeaders {
+      // Just checking is this._options is null using lodash
+      if (isNull(this.__headers)) {
+        const headers = new HttpHeaders()
+           .set('Content-Type', 'application/json; charset=utf-8')
+           .set('Authorization', this. _authToken || '');
+        this.__headers= new RequestOptions({headers: headers});
+      }
+
+      return this.__headers;
+   }
+
+   /**
+    * @param url {string}
+    * @param data {Object}
+    * @return {Observable<any>}
+    */
+    get(url?: string, data?: Object): Observable<any> {
+      const options = this.createAuthorizationHeader();
+      return this._http.get(this._host + url, {
+          headers : this.createAuthorizationHeader()
+      });
+    }
+
+   /**
+    * @param url {string}
+    * @param data {Object}
+    * @return {Observable<any>}
+    */
+    post(url?: string, data?: Object): Observable<any> {
+      const body = JSON.stringify(data);
+      const options = this.createAuthorizationHeader();
+      return this._http.post(this._host + url, body, {
+          headers : this.createAuthorizationHeader()
+      });
+    }
+}

@@ -1,0 +1,112 @@
+<div class="board-inner" id="status-buttons">
+    <ul class="nav nav-tabs" id="myTab">
+        <!-- <div class="liner"></div> -->
+                    
+        <!-- circular user icon -->
+        <li>
+            <a *ngIf="registerState != '0'" title="Basic Information">
+                <span class="round-tabs one" title="Basic Information">
+                    <i class="glyphicon glyphicon-user" title="Basic Information"></i>
+                </span>
+            </a>
+            <a *ngIf="registerState == '0'" title="Basic Information">
+                <span class="round-tabs one-selected" title="Basic Information">
+                    <i class="glyphicon glyphicon-user" title="Basic Information"></i>
+                </span>
+            </a>
+        </li>
+
+        <li>
+            <a title="arrow">
+                <span class="round-tabs arrow">
+                    <i class="glyphicon glyphicon-arrow-right"></i>
+                </span>
+            </a>
+        </li>
+
+        <!-- circular home icon -->
+            <li>
+                <a *ngIf="registerState != '1'" title="Video Recording">
+                    <span class="round-tabs four" title="Video Recording">
+                        <i class="glyphicon glyphicon-facetime-video" title="Video Recording"></i>
+                    </span>
+                </a>
+                <a *ngIf="registerState == '1'" title="Video Recording">
+                    <span class="round-tabs four-selected" title="Video Recording">
+                        <i class="glyphicon glyphicon-facetime-video" title="Video Recording"></i>
+                    </span>
+                </a>
+            </li>
+    
+            <li>
+                <a title="arrow">
+                    <span class="round-tabs arrow">
+                        <i class="glyphicon glyphicon-arrow-right"></i>
+                    </span>
+                </a>
+            </li>
+
+                <!-- circular home icon -->
+        <li>
+            <a *ngIf="registerState != '2'" title="Identity Document">
+                <span class="round-tabs five" title="Identity Document">
+                    <i class="glyphicon glyphicon-camera" title="Identity Document"></i>
+                </span>
+            </a>
+            <a *ngIf="registerState == '2'" title="Identity Document">
+                <span class="round-tabs five-selected" title="Identity Document">
+                    <i class="glyphicon glyphicon-camera" title="Identity Document"></i>
+                </span>
+            </a>
+        </li>
+
+        <li>
+            <a title="arrow">
+                <span class="round-tabs arrow">
+                    <i class="glyphicon glyphicon-arrow-right"></i>
+                </span>
+            </a>
+        </li>
+
+         <!-- circular tasks icon -->
+         <li>
+            <a *ngIf="registerState != '3'" title="Additional Information">
+                <span class="round-tabs two" title="Additional Information">
+                    <i class="glyphicon glyphicon-home" title="Additional Information"></i>
+                </span> 
+            </a>
+            <a *ngIf="registerState == '3'" title="Additional Information">
+                <span class="round-tabs two-selected" title="Additional Information">
+                    <i class="glyphicon glyphicon-home" title="Additional Information"></i>
+                </span> 
+            </a>
+        </li>
+
+        <li>
+            <a title="arrow">
+                <span class="round-tabs arrow">
+                    <i class="glyphicon glyphicon-arrow-right"></i>
+                </span>
+            </a>
+        </li>
+
+         <!-- circular home icon -->
+         <li>
+            <a *ngIf="registerState != '4'" title="Disclaimers">
+                <span class="round-tabs six" title="Disclaimers">
+                    <i class="glyphicon glyphicon-list-alt" title="Disclaimers"></i>
+                </span>
+            </a>
+            <a *ngIf="registerState == '4'" title="Disclaimers">
+                <span class="round-tabs six-selected" title="Disclaimers">
+                    <i class="glyphicon glyphicon-list-alt" title="Disclaimers"></i>
+                </span>
+            </a>
+        </li>
+                
+    </ul>
+    <!-- <div class="clearfix"></div> -->
+</div>
+
+<!-- Close the Splash screen -->
+<script src="assets/js/loading-bars.js"></script>
